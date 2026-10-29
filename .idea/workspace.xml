@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4d40a4b5-50cc-454d-ac1f-ab3f83b4c2b0" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.00000000000003" />
+      <entry key="S10" value="1.0000002445009615" />
+      <entry key="S30" value="1.0099260687595126" />
+      <entry key="S60" value="1.1408975142702713" />
+      <entry key="M2" value="1.5312328946989626" />
+      <entry key="M5" value="2.4078717732164856" />
+      <entry key="M10" value="5.3353047781388625" />
+      <entry key="M15" value="9.707269744945586" />
+      <entry key="M30" value="21.514751182665773" />
+      <entry key="H1" value="34.10623907191242" />
+      <entry key="H2" value="43.52284456116289" />
+      <entry key="H4" value="49.319198626705806" />
+      <entry key="D1" value="54.81922877004886" />
+      <entry key="W1" value="55.829587086130125" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="1.2501914139754719E-137" />
+      <entry key="S2" value="5.946263192804796E-35" />
+      <entry key="S5" value="2.0403170143525237E-14" />
+      <entry key="S10" value="1.42839665861851E-7" />
+      <entry key="S30" value="0.005227366398157602" />
+      <entry key="S60" value="0.07230052844870234" />
+      <entry key="M2" value="0.2689147934795681" />
+      <entry key="M5" value="0.6592242271578524" />
+      <entry key="M10" value="1.9306890864853241" />
+      <entry key="M15" value="3.989042501730315" />
+      <entry key="M30" value="9.756830992151047" />
+      <entry key="H1" value="16.01273283273264" />
+      <entry key="H2" value="20.72493057870601" />
+      <entry key="H4" value="23.636042155671593" />
+      <entry key="D1" value="26.40481280433342" />
+      <entry key="W1" value="26.914084091305263" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="6.369627670272819E-11" />
+      <entry key="MS500" value="0.009137403625405839" />
+      <entry key="S2" value="0.30917594888295075" />
+      <entry key="S5" value="0.6252911485019739" />
+      <entry key="S10" value="0.7907539131086802" />
+      <entry key="S30" value="0.9398025587989108" />
+      <entry key="S60" value="1.1742822312841685" />
+      <entry key="M2" value="1.7797613444295264" />
+      <entry key="M5" value="3.058247104063419" />
+      <entry key="M10" value="7.259889339607433" />
+      <entry key="M15" value="13.69015209718445" />
+      <entry key="M30" value="31.26532908239811" />
+      <entry key="H1" value="50.114039310501305" />
+      <entry key="H2" value="64.24461324575448" />
+      <entry key="H4" value="72.95344271017447" />
+      <entry key="D1" value="81.2237072660818" />
+      <entry key="W1" value="82.7436225063438" />
+    </decayedShown>
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="3LNfACLDZP8Vu1oJUIXaFq6krVp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "code.cleanup.on.save": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Nandika/IdeaProjects/mobile-shop",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.stylelint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Nandika\\IdeaProjects\\mobile-shop\\frontend\\node_modules\\prettier",
+    "rearrange.code.on.save": "true",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "ts.external.directory.path": "C:\\Users\\Nandika\\IdeaProjects\\mobile-shop\\frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4d40a4b5-50cc-454d-ac1f-ab3f83b4c2b0" name="Changes" comment="" />
+      <created>1725433085292</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1725433085292</updated>
+      <workItem from="1725433092596" duration="74000" />
+      <workItem from="1793299303147" duration="16000" />
+      <workItem from="1793299358501" duration="7763000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="master" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$/frontend" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/backend" />
+      <path value="$PROJECT_DIR$/frontend" />
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+  </component>
+</project>

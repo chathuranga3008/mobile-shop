@@ -1,0 +1,70 @@
+<section class="page form-page">
+  <h1>{{ itemId === null ? 'Add Item' : 'Edit Item' }}</h1>
+
+  @if (loading) {
+    <p>Loading item...</p>
+  } @else {
+    @if (error) {
+      <p class="error">{{ error }}</p>
+    }
+
+    <form (ngSubmit)="submit()" [formGroup]="form">
+      <label>
+        SKU
+        <input formControlName="sku"/>
+      </label>
+
+      <label>
+        Product name
+        <input formControlName="name"/>
+      </label>
+
+      <label>
+        Brand
+        <input formControlName="brand"/>
+      </label>
+
+      <label>
+        Category
+        <select formControlName="category">
+          <option value="Mobile">Mobile</option>
+          <option value="Charger">Charger</option>
+          <option value="Case">Case</option>
+          <option value="Cable">Cable</option>
+          <option value="Audio">Audio</option>
+          <option value="Accessories">Accessories</option>
+        </select>
+      </label>
+
+      <label>
+        Price
+        <input formControlName="price" min="0" step="0.01" type="number"/>
+      </label>
+
+      <label>
+        Quantity
+        <input formControlName="quantity" min="0" type="number"/>
+      </label>
+
+      <label>
+        Low-stock threshold
+        <input
+          formControlName="lowStockThreshold"
+          min="0"
+          type="number"/>
+      </label>
+
+      @if (form.invalid && form.touched) {
+        <p class="error">Complete all required fields with valid values.</p>
+      }
+
+      <div class="actions">
+        <button [disabled]="saving" type="submit">
+          {{ saving ? 'Saving...' : 'Save Item' }}
+        </button>
+
+        <a routerLink="/items">Cancel</a>
+      </div>
+    </form>
+  }
+</section>
