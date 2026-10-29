@@ -110,8 +110,11 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Nandika\\IdeaProjects\\mobile-shop\\frontend\\node_modules\\prettier",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.14257812",
+    "project.structure.side.proportion": "0.2",
     "rearrange.code.on.save": "true",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "settings.editor.selected.configurable": "configurable.group.build",
     "ts.external.directory.path": "C:\\Users\\Nandika\\IdeaProjects\\mobile-shop\\frontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -124,6 +127,9 @@
       </set>
     </attachedChunks>
   </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\Nandika\AppData\Roaming\Subversion</configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="4d40a4b5-50cc-454d-ac1f-ab3f83b4c2b0" name="Changes" comment="" />
@@ -133,7 +139,7 @@
       <updated>1725433085292</updated>
       <workItem from="1725433092596" duration="74000" />
       <workItem from="1793299303147" duration="16000" />
-      <workItem from="1793299358501" duration="7763000" />
+      <workItem from="1793299358501" duration="8424000" />
     </task>
     <servers />
   </component>
