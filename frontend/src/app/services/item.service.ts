@@ -1,34 +1,46 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { Item } from '../models/item.model';
 import { environment } from '../../environments/environment';
-import { Item, ItemRequest } from '../models/item.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ItemService {
-  private readonly http = inject(HttpClient);
-  private readonly apiUrl = environment.apiUrl;
 
-  getAll(): Observable<Item[]> {
-    return this.http.get<Item[]>(`${this.apiUrl}/items`);
+  private apiUrl = `${environment.apiUrl}/items`;
+
+  constructor(private http: HttpClient) {}
+
+  // Get all items
+  getAllItems(): Observable<Item[]> {
+    return this.http.get<Item[]>(this.apiUrl);
   }
 
-  getById(id: number): Observable<Item> {
-    return this.http.get<Item>(`${this.apiUrl}/items/${id}`);
+  // Get item by ID
+  getItemById(id: number): Observable<Item> {
+    return this.http.get<Item>(`${this.apiUrl}/${id}`);
   }
 
-  create(item: ItemRequest): Observable<Item> {
-    return this.http.post<Item>(`${this.apiUrl}/items`, item);
+  // Create item
+  createItem(item: Omit<Item, 'id' | 'createdAt'>): Observable<Item> {
+    return this.http.post<Item>(this.apiUrl, item);
   }
 
-  update(id: number, item: ItemRequest): Observable<Item> {
-    return this.http.put<Item>(`${this.apiUrl}/items/${id}`, item);
+  // Update item
+  updateItem(id: number, item: Omit<Item, 'id' | 'createdAt'>): Observable<Item> {
+    return this.http.put<Item>(`${this.apiUrl}/${id}`, item);
   }
 
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/items/${id}`);
+  // Delete item
+  deleteItem(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  // Get low-stock items
+  getLowStockItems(): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.apiUrl}/low-stock`);
   }
 }

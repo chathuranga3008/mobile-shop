@@ -1,0 +1,45 @@
+<div class="container">
+  <h2>Mobile Shop - Item Management</h2>
+
+  <div *ngIf="loading">
+    Loading items...
+  </div>
+
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <table *ngIf="!loading && !errorMessage">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>SKU</th>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Low Stock Threshold</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>{{ item.id }}</td>
+        <td>{{ item.sku }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.brand }}</td>
+        <td>{{ item.category }}</td>
+        <td>{{ item.price | number:'1.2-2' }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.lowStockThreshold }}</td>
+      </tr>
+
+      <tr *ngIf="items.length === 0">
+        <td colspan="8">No items found.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button (click)="loadItems()">Refresh Items</button>
+</div>

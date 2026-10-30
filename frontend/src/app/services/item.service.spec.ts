@@ -23,7 +23,7 @@ describe('ItemService', () => {
   });
 
   it('should request the item list from the api items endpoint', () => {
-    service.getAll().subscribe();
+    service.getAllItems().subscribe();
 
     const req = httpTestingController.expectOne('http://localhost:8080/api/items');
     expect(req.request.method).toBe('GET');
