@@ -28,11 +28,11 @@ export class ItemList implements OnInit {
     this.errorMessage = '';
 
     this.itemService.getAllItems().subscribe({
-      next: (data) => {
+      next: (data: Item[]) => {
         this.items = data;
         this.loading = false;
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error loading items:', error);
         this.errorMessage = 'Unable to load items. Please try again.';
         this.loading = false;
