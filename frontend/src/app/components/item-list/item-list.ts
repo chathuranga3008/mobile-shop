@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Item } from '../../models/item.model';
@@ -12,6 +12,9 @@ import { ItemService } from '../../services/item.service';
   styleUrl: './item-list.css'
 })
 export class ItemList implements OnInit {
+
+  @Output() editItem = new EventEmitter<Item>();
+  @Output() deleteItem = new EventEmitter<Item>();
 
   items: Item[] = [];
   loading = false;

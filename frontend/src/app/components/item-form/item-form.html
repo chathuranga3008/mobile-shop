@@ -1,5 +1,5 @@
 <div class="form-container">
-  <h2>Add New Item</h2>
+  <h2>{{ isEditMode ? 'Edit Item' : 'Add New Item' }}</h2>
 
   <form (ngSubmit)="saveItem()" #itemForm="ngForm">
 
@@ -74,7 +74,7 @@
     </div>
 
     <button type="submit" [disabled]="itemForm.invalid">
-      Save Item
+      {{ isEditMode ? 'Update Item' : 'Save Item' }}
     </button>
 
   </form>
