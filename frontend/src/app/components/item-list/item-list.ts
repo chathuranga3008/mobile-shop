@@ -17,6 +17,8 @@ export class ItemList implements OnInit {
   loading = false;
   errorMessage = '';
 
+  showLowStockOnly = false;
+
   constructor(private itemService: ItemService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
@@ -46,31 +48,22 @@ export class ItemList implements OnInit {
     });
   }
 
-  // loadItems(): void {
-  //   console.log('Loading items started');
+  loadLowStockItems(): void {
+    this.loading = true;
+    this.errorMessage = '';
 
-  //   this.loading = true;
-  //   this.errorMessage = '';
-
-  //   this.itemService.getAllItems().subscribe({
-  //     next: (data: Item[]) => {
-  //       console.log('Items received:', data);
-
-  //       this.items = data;
-  //       console.log('Number of items:', this.items.length);
-  //       this.loading = false;
-
-  //       console.log('Loading completed:', this.loading);
-  //     },
-  //     error: (error: any) => {
-  //       console.error('Error loading items:', error);
-
-  //       this.errorMessage = 'Unable to load items. Please try again.';
-  //       this.loading = false;
-  //     },
-  //     complete: () => {
-  //       console.log('HTTP request completed');
-  //     }
-  //   });
-  // }
+    this.itemService.getLowStockItems().subscribe({
+      next: (data: Item[]) => {
+        this.items = data;
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: (error: any) => {
+        console.error('Error loading low-stock items:', error);
+        this.errorMessage = 'Failed to load low-stock items.';
+        this.loading = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
 }

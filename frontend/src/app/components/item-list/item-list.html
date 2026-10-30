@@ -1,9 +1,19 @@
 <div class="container">
-
   <h2>Mobile Shop - Item Management</h2>
 
-  <p>Loading: {{ loading }}</p>
-  <p>Total items: {{ items.length }}</p>
+  <div class="filter-buttons">
+    <button
+      [class.active]="!showLowStockOnly"
+      (click)="showLowStockOnly = false; loadItems()">
+      All Items
+    </button>
+
+    <button
+      [class.active]="showLowStockOnly"
+      (click)="showLowStockOnly = true; loadLowStockItems()">
+      Low Stock Only
+    </button>
+  </div>
 
   <div *ngIf="loading">
     Loading items...
@@ -14,7 +24,6 @@
   </div>
 
   <table *ngIf="!loading && !errorMessage">
-
     <thead>
       <tr>
         <th>ID</th>
@@ -36,13 +45,18 @@
         <td>{{ item.brand }}</td>
         <td>{{ item.category }}</td>
         <td>{{ item.price | number:'1.2-2' }}</td>
-        <td>{{ item.quantity }}</td>
+        <td
+          [class.low-stock]="item.quantity <= item.lowStockThreshold">
+          {{ item.quantity }}
+        </td>
         <td>{{ item.lowStockThreshold }}</td>
       </tr>
-    </tbody>
 
+      <tr *ngIf="items.length === 0">
+        <td colspan="8">No items found.</td>
+      </tr>
+    </tbody>
   </table>
 
   <button (click)="loadItems()">Refresh Items</button>
-
 </div>

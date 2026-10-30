@@ -37,3 +37,33 @@ button {
   color: red;
   margin: 15px 0;
 }
+
+.low-stock {
+  color: #dc2626;
+  font-weight: bold;
+  background-color: #fee2e2;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-buttons button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.filter-buttons button:hover {
+  background-color: #1d4ed8;
+}
+
+.filter-buttons button.active {
+  background-color: #15803d;
+  font-weight: bold;
+}
