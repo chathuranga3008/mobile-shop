@@ -1,6 +1,9 @@
-<p>item-list works!</p>
 <div class="container">
+
   <h2>Mobile Shop - Item Management</h2>
+
+  <p>Loading: {{ loading }}</p>
+  <p>Total items: {{ items.length }}</p>
 
   <div *ngIf="loading">
     Loading items...
@@ -11,6 +14,7 @@
   </div>
 
   <table *ngIf="!loading && !errorMessage">
+
     <thead>
       <tr>
         <th>ID</th>
@@ -35,12 +39,10 @@
         <td>{{ item.quantity }}</td>
         <td>{{ item.lowStockThreshold }}</td>
       </tr>
-
-      <tr *ngIf="items.length === 0">
-        <td colspan="8">No items found.</td>
-      </tr>
     </tbody>
+
   </table>
 
   <button (click)="loadItems()">Refresh Items</button>
+
 </div>
