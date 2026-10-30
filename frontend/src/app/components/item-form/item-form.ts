@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -12,6 +12,8 @@ import { ItemService } from '../../services/item.service';
   styleUrl: './item-form.css'
 })
 export class ItemForm {
+
+  @Output() itemAdded = new EventEmitter<void>();
 
   item = {
     sku: '',
@@ -35,6 +37,8 @@ export class ItemForm {
     this.itemService.createItem(this.item).subscribe({
       next: (response) => {
         this.successMessage = 'Item added successfully!';
+        this.itemAdded.emit();
+
         console.log('Created item:', response);
 
         this.item = {

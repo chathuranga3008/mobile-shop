@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+
 import { ItemList } from './components/item-list/item-list';
 import { ItemForm } from './components/item-form/item-form';
 
@@ -7,9 +8,16 @@ import { ItemForm } from './components/item-form/item-form';
   standalone: true,
   imports: [ItemList, ItemForm],
   template: `
-    <app-item-form />
+    <app-item-form (itemAdded)="refreshItems()" />
     <app-item-list />
   `,
   styleUrl: './app.css'
 })
-export class App {}
+export class App {
+
+  @ViewChild(ItemList) itemList!: ItemList;
+
+  refreshItems(): void {
+    this.itemList.loadItems();
+  }
+}
