@@ -4,17 +4,64 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d40a4b5-50cc-454d-ac1f-ab3f83b4c2b0" name="Changes" comment="" />
+    <list default="true" id="4d40a4b5-50cc-454d-ac1f-ab3f83b4c2b0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/mobile-shop.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mobile-shop.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/shop/MobileShopApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/shop/MobileShopApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/shop/controller/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/shop/controller/ItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/shop/dto/ItemDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/shop/dto/ItemResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/shop/dto/ItemRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/shop/dto/ItemRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/shop/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/shop/service/ItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/mobile_shop.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.vscode/extensions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/item-form/item-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/item-form/item-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/item-list/item-list.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/item-list/item-list.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/models/item.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/item.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/item.service.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseLocalColorSettings">
+    <colors>
+      <entry key="4e8f4563-846c-42c2-a2a4-964b9e847601" value="" />
+      <entry key="f96343f6-076b-4ca2-8861-a10d53e3a44d" value="" />
+    </colors>
   </component>
   <component name="FormatOnSaveOptions">
     <option name="myRunOnSave" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;chathuranga3008&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/chathuranga3008/mobile-shop.git&quot;,
+    &quot;accountId&quot;: &quot;bab6e03f-1bad-41ea-b7d1-d5b35562ed55&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="McpProjectServerCommands">
     <commands />
@@ -23,60 +70,60 @@
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
       <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.00000000000003" />
-      <entry key="S10" value="1.0000002445009615" />
-      <entry key="S30" value="1.0099260687595126" />
-      <entry key="S60" value="1.1408975142702713" />
-      <entry key="M2" value="1.5312328946989626" />
-      <entry key="M5" value="2.4078717732164856" />
-      <entry key="M10" value="5.3353047781388625" />
-      <entry key="M15" value="9.707269744945586" />
-      <entry key="M30" value="21.514751182665773" />
-      <entry key="H1" value="34.10623907191242" />
-      <entry key="H2" value="43.52284456116289" />
-      <entry key="H4" value="49.319198626705806" />
-      <entry key="D1" value="54.81922877004886" />
-      <entry key="W1" value="55.829587086130125" />
+      <entry key="MS500" value="1.0000000117181187" />
+      <entry key="S2" value="1.013986716943032" />
+      <entry key="S5" value="1.2664850363214613" />
+      <entry key="S10" value="1.7490319189999237" />
+      <entry key="S30" value="3.141937081969549" />
+      <entry key="S60" value="4.381260905205099" />
+      <entry key="M2" value="5.466897392539661" />
+      <entry key="M5" value="7.575228488824542" />
+      <entry key="M10" value="12.493266376395566" />
+      <entry key="M15" value="17.78644718320406" />
+      <entry key="M30" value="32.577090526529744" />
+      <entry key="H1" value="52.70439397790234" />
+      <entry key="H2" value="71.33959318635272" />
+      <entry key="H4" value="84.40668858796488" />
+      <entry key="D1" value="97.9473373378445" />
+      <entry key="W1" value="100.5562431750013" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="1.2501914139754719E-137" />
-      <entry key="S2" value="5.946263192804796E-35" />
-      <entry key="S5" value="2.0403170143525237E-14" />
-      <entry key="S10" value="1.42839665861851E-7" />
-      <entry key="S30" value="0.005227366398157602" />
-      <entry key="S60" value="0.07230052844870234" />
-      <entry key="M2" value="0.2689147934795681" />
-      <entry key="M5" value="0.6592242271578524" />
-      <entry key="M10" value="1.9306890864853241" />
-      <entry key="M15" value="3.989042501730315" />
-      <entry key="M30" value="9.756830992151047" />
-      <entry key="H1" value="16.01273283273264" />
-      <entry key="H2" value="20.72493057870601" />
-      <entry key="H4" value="23.636042155671593" />
-      <entry key="D1" value="26.40481280433342" />
-      <entry key="W1" value="26.914084091305263" />
+      <entry key="MS100" value="4.1983856466148205E-197" />
+      <entry key="MS500" value="5.304158163512705E-40" />
+      <entry key="S2" value="1.5175888128825186E-10" />
+      <entry key="S5" value="1.181575960563645E-4" />
+      <entry key="S10" value="0.01087003201726492" />
+      <entry key="S30" value="0.22151864144883038" />
+      <entry key="S60" value="0.4707073186277895" />
+      <entry key="M2" value="0.6930914251106427" />
+      <entry key="M5" value="0.9996678666049313" />
+      <entry key="M10" value="1.3950415109292447" />
+      <entry key="M15" value="1.979520874274508" />
+      <entry key="M30" value="5.13912862009758" />
+      <entry key="H1" value="11.463063775185613" />
+      <entry key="H2" value="18.257474495598387" />
+      <entry key="H4" value="23.324076012062726" />
+      <entry key="D1" value="28.754980309513154" />
+      <entry key="W1" value="29.818589202538423" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="6.369627670272819E-11" />
-      <entry key="MS500" value="0.009137403625405839" />
-      <entry key="S2" value="0.30917594888295075" />
-      <entry key="S5" value="0.6252911485019739" />
-      <entry key="S10" value="0.7907539131086802" />
-      <entry key="S30" value="0.9398025587989108" />
-      <entry key="S60" value="1.1742822312841685" />
-      <entry key="M2" value="1.7797613444295264" />
-      <entry key="M5" value="3.058247104063419" />
-      <entry key="M10" value="7.259889339607433" />
-      <entry key="M15" value="13.69015209718445" />
-      <entry key="M30" value="31.26532908239811" />
-      <entry key="H1" value="50.114039310501305" />
-      <entry key="H2" value="64.24461324575448" />
-      <entry key="H4" value="72.95344271017447" />
-      <entry key="D1" value="81.2237072660818" />
-      <entry key="W1" value="82.7436225063438" />
+      <entry key="MS100" value="0.9659363289248456" />
+      <entry key="MS500" value="0.9930925070422274" />
+      <entry key="S2" value="1.0122227107272352" />
+      <entry key="S5" value="1.2655902123335967" />
+      <entry key="S10" value="1.7545343029972913" />
+      <entry key="S30" value="3.323149167831246" />
+      <entry key="S60" value="4.806630239351826" />
+      <entry key="M2" value="6.1258405030048575" />
+      <entry key="M5" value="8.555633772634184" />
+      <entry key="M10" value="13.874736134867977" />
+      <entry key="M15" value="19.754492509701457" />
+      <entry key="M30" value="37.707129437407474" />
+      <entry key="H1" value="64.16047407687464" />
+      <entry key="H2" value="89.59238631040925" />
+      <entry key="H4" value="107.72799502930721" />
+      <entry key="D1" value="126.70178067945864" />
+      <entry key="W1" value="130.37475357461736" />
     </decayedShown>
   </component>
   <component name="OptimizeOnSaveOptions">
@@ -99,31 +146,50 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.MobileShopApplication.executor": "Run",
     "code.cleanup.on.save": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Nandika/IdeaProjects/mobile-shop",
+    "node.js.detected.package.jshint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.jshint": "",
     "node.js.selected.package.stylelint": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Nandika\\IdeaProjects\\mobile-shop\\frontend\\node_modules\\prettier",
-    "project.structure.last.edited": "Problems",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.14257812",
     "project.structure.side.proportion": "0.2",
     "rearrange.code.on.save": "true",
+    "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "configurable.group.build",
     "ts.external.directory.path": "C:\\Users\\Nandika\\IdeaProjects\\mobile-shop\\frontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nandika\IdeaProjects\mobile-shop" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="MobileShopApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="mobile-shop-backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.shop.MobileShopApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
+        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10968.63" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10968.63" />
       </set>
     </attachedChunks>
   </component>
@@ -140,11 +206,20 @@
       <workItem from="1725433092596" duration="74000" />
       <workItem from="1793299303147" duration="16000" />
       <workItem from="1793299358501" duration="8424000" />
+      <workItem from="1793309034883" duration="46000" />
+      <workItem from="1793309435976" duration="1081000" />
+      <workItem from="1793335009787" duration="713000" />
+      <workItem from="1793336783682" duration="25000" />
+      <workItem from="1793364302635" duration="291000" />
+      <workItem from="1793364602248" duration="8244000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="RECENT_FILTERS">
@@ -178,8 +253,20 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
                   <entry key="roots">
                     <value>
                       <list>

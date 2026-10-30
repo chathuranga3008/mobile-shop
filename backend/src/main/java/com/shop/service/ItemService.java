@@ -1,11 +1,13 @@
 package com.shop.service;
 
-import com.shop.dto.ItemDto;
 import com.shop.dto.ItemRequestDto;
+import com.shop.dto.ItemResponseDto;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,33 +15,43 @@ import java.util.Optional;
 public class ItemService {
 
     private final JdbcTemplate jdbcTemplate;
+    // Maps database columns to ItemResponseDto
+    private final RowMapper<ItemResponseDto> itemMapper =
+            (rs, rowNum) -> {
 
-    private final RowMapper<ItemDto> itemMapper = (rs, rowNum) ->
-            new ItemDto(
-                    rs.getLong("id"),
-                    rs.getString("sku"),
-                    rs.getString("name"),
-                    rs.getString("brand"),
-                    rs.getString("category"),
-                    rs.getBigDecimal("price"),
-                    rs.getInt("quantity"),
-                    rs.getInt("low_stock_threshold"),
-                    rs.getTimestamp("created_at").toLocalDateTime()
-            );
+                Timestamp timestamp = rs.getTimestamp("created_at");
+
+                return new ItemResponseDto(
+                        rs.getLong("id"),
+                        rs.getString("sku"),
+                        rs.getString("name"),
+                        rs.getString("brand"),
+                        rs.getString("category"),
+                        rs.getBigDecimal("price"),
+                        rs.getInt("quantity"),
+                        rs.getInt("low_stock_threshold"),
+                        timestamp != null
+                                ? timestamp.toLocalDateTime()
+                                : null
+                );
+            };
 
     public ItemService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<ItemDto> getAllItems() {
+    // Get all items
+    public List<ItemResponseDto> getAllItems() {
         return jdbcTemplate.query(
                 "CALL sp_get_items()",
                 itemMapper
         );
     }
 
-    public Optional<ItemDto> getItemById(Long id) {
-        List<ItemDto> items = jdbcTemplate.query(
+    // Get item by ID
+    public Optional<ItemResponseDto> getItemById(Long id) {
+
+        List<ItemResponseDto> items = jdbcTemplate.query(
                 "CALL sp_get_item_by_id(?)",
                 itemMapper,
                 id
@@ -48,7 +60,9 @@ public class ItemService {
         return items.stream().findFirst();
     }
 
-    public ItemDto createItem(ItemRequestDto item) {
+    // Create item
+    public ItemResponseDto createItem(ItemRequestDto item) {
+
         return jdbcTemplate.queryForObject(
                 "CALL sp_create_item(?, ?, ?, ?, ?, ?, ?)",
                 itemMapper,
@@ -62,11 +76,13 @@ public class ItemService {
         );
     }
 
-    public Optional<ItemDto> updateItem(
+    // Update item
+    public Optional<ItemResponseDto> updateItem(
             Long id,
             ItemRequestDto item
     ) {
-        List<ItemDto> items = jdbcTemplate.query(
+
+        List<ItemResponseDto> items = jdbcTemplate.query(
                 "CALL sp_update_item(?, ?, ?, ?, ?, ?, ?, ?)",
                 itemMapper,
                 id,
@@ -82,7 +98,9 @@ public class ItemService {
         return items.stream().findFirst();
     }
 
+    // Delete item
     public boolean deleteItem(Long id) {
+
         Integer affectedRows = jdbcTemplate.queryForObject(
                 "CALL sp_delete_item(?)",
                 Integer.class,
@@ -90,5 +108,14 @@ public class ItemService {
         );
 
         return affectedRows != null && affectedRows > 0;
+    }
+
+    // Get low-stock items
+    public List<ItemResponseDto> getLowStockItems() {
+
+        return jdbcTemplate.query(
+                "CALL sp_get_low_stock_items()",
+                itemMapper
+        );
     }
 }

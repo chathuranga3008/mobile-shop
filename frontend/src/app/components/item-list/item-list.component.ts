@@ -3,7 +3,7 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { ItemService } from '../../services/item.service';
-import { Item } from '../../models/item';
+import { Item } from '../../models/item.model';
 
 @Component({
   selector: 'app-item-list',

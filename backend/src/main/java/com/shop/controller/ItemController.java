@@ -1,18 +1,23 @@
 package com.shop.controller;
 
-import com.shop.dto.ItemDto;
 import com.shop.dto.ItemRequestDto;
+import com.shop.dto.ItemResponseDto;
 import com.shop.service.ItemService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.net.URI;
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://127.0.0.1:4200"})
+@CrossOrigin(origins = {
+        "http://localhost:4200",
+        "http://127.0.0.1:4200"
+})
 @RestController
-@RequestMapping("/api/items")
+@RequestMapping("/items")
 public class ItemController {
 
     private final ItemService itemService;
@@ -21,13 +26,15 @@ public class ItemController {
         this.itemService = itemService;
     }
 
+    // Get all items
     @GetMapping
-    public List<ItemDto> getAllItems() {
+    public List<ItemResponseDto> getAllItems() {
         return itemService.getAllItems();
     }
 
+    // Get item by ID
     @GetMapping("/{id}")
-    public ResponseEntity<ItemDto> getItemById(
+    public ResponseEntity<ItemResponseDto> getItemById(
             @PathVariable Long id
     ) {
         return itemService.getItemById(id)
@@ -35,27 +42,30 @@ public class ItemController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // Create item
     @PostMapping
-    public ResponseEntity<ItemDto> createItem(
-            @RequestBody ItemRequestDto request
+    public ResponseEntity<ItemResponseDto> createItem(
+            @Valid @RequestBody ItemRequestDto request
     ) {
-        ItemDto created = itemService.createItem(request);
+        ItemResponseDto created = itemService.createItem(request);
 
         return ResponseEntity
                 .created(URI.create("/api/items/" + created.id()))
                 .body(created);
     }
 
+    // Update item
     @PutMapping("/{id}")
-    public ResponseEntity<ItemDto> updateItem(
+    public ResponseEntity<ItemResponseDto> updateItem(
             @PathVariable Long id,
-            @RequestBody ItemRequestDto request
+            @Valid @RequestBody ItemRequestDto request
     ) {
         return itemService.updateItem(id, request)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // Delete item
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteItem(
             @PathVariable Long id
@@ -65,5 +75,11 @@ public class ItemController {
         }
 
         return ResponseEntity.noContent().build();
+    }
+
+    // Get low-stock items
+    @GetMapping("/low-stock")
+    public List<ItemResponseDto> getLowStockItems() {
+        return itemService.getLowStockItems();
     }
 }

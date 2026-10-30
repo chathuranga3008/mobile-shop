@@ -39,7 +39,7 @@ CREATE TABLE `items` (
   CONSTRAINT `chk_item_price` CHECK ((`price` >= 0)),
   CONSTRAINT `chk_item_quantity` CHECK ((`quantity` >= 0)),
   CONSTRAINT `chk_item_threshold` CHECK ((`low_stock_threshold` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +48,7 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (1,'PHN-SAM-001','Galaxy A56','Samsung','Mobile',1299.99,15,5,'2026-10-29 16:47:29'),(2,'PHN-APP-001','iPhone 16','Apple','Mobile',2499.99,8,3,'2026-10-29 16:47:29'),(3,'ACC-CHR-001','Fast Charger 25W','Samsung','Charger',89.99,20,5,'2026-10-29 16:47:29'),(4,'ACC-CAS-001','Silicone Phone Case','Generic','Case',29.99,3,5,'2026-10-29 16:47:29'),(5,'ACC-EAR-001','Wireless Earbuds','Anker','Audio',499.99,12,4,'2026-10-29 16:53:38'),(6,'ACC-CAS-002','Silicone Phone Case','Generic','Case',39.99,10,5,'2026-10-29 17:05:08');
+INSERT INTO `items` VALUES (1,'PHN-SAM-001','Galaxy A56','Samsung','Mobile',1299.99,15,5,'2026-10-29 16:47:29'),(2,'PHN-APP-001','iPhone 16','Apple','Mobile',2499.99,8,3,'2026-10-29 16:47:29'),(3,'ACC-CHR-001','Fast Charger 25W','Samsung','Charger',89.99,20,5,'2026-10-29 16:47:29'),(4,'ACC-CAS-001','Silicone Phone Case','Generic','Case',29.99,3,5,'2026-10-29 16:47:29'),(5,'ACC-EAR-001','Wireless Earbuds','Anker','Audio',499.99,12,4,'2026-10-29 16:53:38'),(6,'ACC-CAS-002','Silicone Phone Case','Generic','Case',39.99,10,5,'2026-10-29 17:05:08'),(8,'PHN-XIA-001','Redmi Note 14 5G','Xiaomi','Smartphone',61999.00,8,5,'2026-10-30 14:03:39');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-30  2:50:01
+-- Dump completed on 2026-10-30 20:51:38

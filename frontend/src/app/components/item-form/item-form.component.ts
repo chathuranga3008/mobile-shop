@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { ItemService } from '../../services/item.service';
-import { ItemRequest } from '../../models/item';
+import { ItemRequest } from '../../models/item.model';
 
 @Component({
   selector: 'app-item-form',
