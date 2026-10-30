@@ -14,7 +14,6 @@ import { ItemService } from '../../services/item.service';
 export class ItemList implements OnInit {
 
   @Output() editItem = new EventEmitter<Item>();
-  @Output() deleteItem = new EventEmitter<Item>();
 
   items: Item[] = [];
   loading = false;
@@ -66,6 +65,29 @@ export class ItemList implements OnInit {
         this.errorMessage = 'Failed to load low-stock items.';
         this.loading = false;
         this.cdr.detectChanges();
+      }
+    });
+  }
+
+  deleteItem(id: number): void {
+    const confirmed = confirm(
+      'Are you sure you want to delete this item?'
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.itemService.deleteItem(id).subscribe({
+      next: () => {
+        console.log('Item deleted successfully');
+
+        this.loadItems();
+      },
+      error: (error: any) => {
+        console.error('Error deleting item:', error);
+
+        this.errorMessage = 'Failed to delete item.';
       }
     });
   }

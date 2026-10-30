@@ -2,22 +2,19 @@
   <h2>Mobile Shop - Item Management</h2>
 
   <div class="filter-buttons">
-    <button
-      [class.active]="!showLowStockOnly"
-      (click)="showLowStockOnly = false; loadItems()">
+    <button [class.active]="!showLowStockOnly" (click)="showLowStockOnly = false; loadItems()">
       All Items
     </button>
 
     <button
       [class.active]="showLowStockOnly"
-      (click)="showLowStockOnly = true; loadLowStockItems()">
+      (click)="showLowStockOnly = true; loadLowStockItems()"
+    >
       Low Stock Only
     </button>
   </div>
 
-  <div *ngIf="loading">
-    Loading items...
-  </div>
+  <div *ngIf="loading">Loading items...</div>
 
   <div *ngIf="errorMessage" class="error">
     {{ errorMessage }}
@@ -45,15 +42,14 @@
         <td>{{ item.name }}</td>
         <td>{{ item.brand }}</td>
         <td>{{ item.category }}</td>
-        <td>{{ item.price | number:'1.2-2' }}</td>
-        <td
-          [class.low-stock]="item.quantity <= item.lowStockThreshold">
+        <td>{{ item.price | number: '1.2-2' }}</td>
+        <td [class.low-stock]="item.quantity <= item.lowStockThreshold">
           {{ item.quantity }}
         </td>
         <td>{{ item.lowStockThreshold }}</td>
         <td>
           <button (click)="editItem.emit(item)">Edit</button>
-          <button (click)="deleteItem.emit(item)">Delete</button>
+          <button class="delete-button" (click)="deleteItem(item.id)">Delete</button>
         </td>
       </tr>
 
