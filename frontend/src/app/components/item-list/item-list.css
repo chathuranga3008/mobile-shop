@@ -81,3 +81,29 @@ button {
 .delete-button:hover {
   background-color: #b91c1c;
 }
+
+.search-container {
+  margin: 20px 0;
+}
+
+.search-container input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-container input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 4px rgba(37, 99, 235, 0.3);
+}
+
+.result-count {
+  margin: 12px 0;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+}

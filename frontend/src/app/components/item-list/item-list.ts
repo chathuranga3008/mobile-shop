@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { Item } from '../../models/item.model';
 import { ItemService } from '../../services/item.service';
@@ -7,7 +8,7 @@ import { ItemService } from '../../services/item.service';
 @Component({
   selector: 'app-item-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './item-list.html',
   styleUrl: './item-list.css'
 })
@@ -17,6 +18,10 @@ export class ItemList implements OnInit {
   @Output() itemDeleted = new EventEmitter<void>();
 
   items: Item[] = [];
+  searchTerm = '';
+  selectedBrand = '';
+  selectedCategory = ''
+
   loading = false;
   errorMessage = '';
 
@@ -90,5 +95,35 @@ export class ItemList implements OnInit {
         this.errorMessage = 'Failed to delete item.';
       }
     });
+  }
+
+  get filteredItems(): Item[] {
+    const search = this.searchTerm.toLowerCase().trim();
+
+    return this.items.filter(item => {
+      const matchesSearch =
+        item.sku.toLowerCase().includes(search) ||
+        item.name.toLowerCase().includes(search);
+
+      const matchesBrand =
+        !this.selectedBrand || item.brand === this.selectedBrand;
+
+      const matchesCategory =
+        !this.selectedCategory || item.category === this.selectedCategory;
+
+      return matchesSearch && matchesBrand && matchesCategory;
+    });
+  }
+
+  get brands(): string[] {
+    return [...new Set(this.items.map(item => item.brand))].sort();
+  }
+
+  get categories(): string[] {
+    const filteredItems = this.selectedBrand
+      ? this.items.filter(item => item.brand === this.selectedBrand)
+      : this.items;
+
+    return [...new Set(filteredItems.map(item => item.category))].sort();
   }
 }

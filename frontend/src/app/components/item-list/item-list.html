@@ -14,6 +14,39 @@
     </button>
   </div>
 
+  <div class="search-container">
+    <input
+      type="text"
+      placeholder="Search by SKU or item name..."
+      [(ngModel)]="searchTerm"
+    />
+  </div>
+
+  <select [(ngModel)]="selectedBrand" (ngModelChange)="selectedCategory = ''">
+    <option value="">All Brands</option>
+    <option *ngFor="let brand of brands" [value]="brand">
+      {{ brand }}
+    </option>
+  </select>
+
+  <select [(ngModel)]="selectedCategory">
+    <option value="">All Categories</option>
+    <option *ngFor="let category of categories" [value]="category">
+      {{ category }}
+    </option>
+  </select>
+
+  <p class="result-count">
+    <ng-container *ngIf="filteredItems.length > 0">
+      Showing {{ filteredItems.length }}
+      {{ filteredItems.length === 1 ? 'item' : 'items' }}
+    </ng-container>
+
+    <ng-container *ngIf="filteredItems.length === 0">
+      No matching items found.
+    </ng-container>
+  </p>
+
   <div *ngIf="loading">Loading items...</div>
 
   <div *ngIf="errorMessage" class="error">
@@ -36,7 +69,7 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let item of items">
+      <tr *ngFor="let item of filteredItems">
         <td>{{ item.id }}</td>
         <td>{{ item.sku }}</td>
         <td>{{ item.name }}</td>
