@@ -22,6 +22,7 @@ export class StockHistory implements OnInit {
   searchSku = '';
   searchItemName = '';
   selectedMovementType = '';
+  sortOrder: 'newest' | 'oldest' = 'newest';
 
   constructor(
     private itemService: ItemService,
@@ -58,51 +59,60 @@ export class StockHistory implements OnInit {
   }
 
   get filteredMovements(): StockMovement[] {
-    return this.movements.filter(movement => {
-      const movementDate = new Date(movement.createdAt);
+    return this.movements
+      .filter(movement => {
+        const movementDate = new Date(movement.createdAt);
 
-      // Date range filter
-      if (this.startDate) {
-        const fromDate = new Date(this.startDate + 'T00:00:00');
+        // Date range filter
+        if (this.startDate) {
+          const fromDate = new Date(this.startDate + 'T00:00:00');
 
-        if (movementDate < fromDate) {
+          if (movementDate < fromDate) {
+            return false;
+          }
+        }
+
+        if (this.endDate) {
+          const toDate = new Date(this.endDate + 'T23:59:59.999');
+
+          if (movementDate > toDate) {
+            return false;
+          }
+        }
+
+        // SKU filter
+        if (
+          this.searchSku &&
+          !movement.sku.toLowerCase().includes(this.searchSku.toLowerCase().trim())
+        ) {
           return false;
         }
-      }
 
-      if (this.endDate) {
-        const toDate = new Date(this.endDate + 'T23:59:59.999');
-
-        if (movementDate > toDate) {
+        // Item name filter
+        if (
+          this.searchItemName &&
+          !movement.itemName.toLowerCase().includes(this.searchItemName.toLowerCase().trim())
+        ) {
           return false;
         }
-      }
 
-      // SKU filter
-      if (
-        this.searchSku &&
-        !movement.sku.toLowerCase().includes(this.searchSku.toLowerCase().trim())
-      ) {
-        return false;
-      }
+        // Movement type filter
+        if (
+          this.selectedMovementType &&
+          movement.movementType !== this.selectedMovementType
+        ) {
+          return false;
+        }
 
-      // Item name filter
-      if (
-        this.searchItemName &&
-        !movement.itemName.toLowerCase().includes(this.searchItemName.toLowerCase().trim())
-      ) {
-        return false;
-      }
+          return true;
+      })
+      .sort((a, b) => {
+        const dateA = new Date(a.createdAt).getTime();
+        const dateB = new Date(b.createdAt).getTime();
 
-      // Movement type filter
-      if (
-        this.selectedMovementType &&
-        movement.movementType !== this.selectedMovementType
-      ) {
-        return false;
-      }
-
-      return true;
-    });
+        return this.sortOrder === 'newest'
+          ? dateB - dateA
+          : dateA - dateB;
+      });
   }
 }
