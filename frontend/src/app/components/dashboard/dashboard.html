@@ -1,1 +1,52 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+
+  <h2>Mobile Shop Dashboard</h2>
+  <p class="subtitle">Inventory Overview</p>
+
+  <div *ngIf="loading" class="loading">
+    Loading dashboard...
+  </div>
+
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <div class="dashboard-grid" *ngIf="!loading && !errorMessage">
+
+    <!-- Total Items -->
+    <div class="dashboard-card blue">
+      <div class="card-icon">📦</div>
+      <h3>Total Items</h3>
+      <p class="card-value">{{ totalItems }}</p>
+    </div>
+
+    <!-- Low Stock Items -->
+    <div class="dashboard-card red">
+      <div class="card-icon">⚠️</div>
+      <h3>Low Stock Items</h3>
+      <p class="card-value">{{ lowStockItems }}</p>
+    </div>
+
+    <!-- Inventory Value -->
+    <div class="dashboard-card green">
+      <div class="card-icon">💰</div>
+      <h3>Inventory Value</h3>
+      <p class="card-value">
+        {{ inventoryValue | number:'1.2-2' }}
+      </p>
+    </div>
+
+    <!-- Total Quantity -->
+    <div class="dashboard-card purple">
+      <div class="card-icon">🏷️</div>
+      <h3>Total Quantity</h3>
+      <p class="card-value">{{ totalQuantity }}</p>
+    </div>
+
+  </div>
+
+  <button (click)="loadDashboard()" [disabled]="loading">
+    Refresh Dashboard
+  </button>
+
+</div>

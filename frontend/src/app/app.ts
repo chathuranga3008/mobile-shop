@@ -3,12 +3,15 @@ import { Component, ViewChild } from '@angular/core';
 import { ItemList } from './components/item-list/item-list';
 import { ItemForm } from './components/item-form/item-form';
 import { Item } from './models/item.model';
+import { Dashboard } from './components/dashboard/dashboard';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ItemList, ItemForm],
+  imports: [ItemList, ItemForm, Dashboard],
   template: `
+    <app-dashboard />
+
     <app-item-form
       [selectedItem]="selectedItem"
       (itemAdded)="refreshItems()"
@@ -16,6 +19,7 @@ import { Item } from './models/item.model';
 
     <app-item-list
       (editItem)="onEditItem($event)"
+      (itemDeleted)="refreshItems()"
     />
   `,
   styleUrl: './app.css'
@@ -23,6 +27,7 @@ import { Item } from './models/item.model';
 export class App {
 
   @ViewChild(ItemList) itemList!: ItemList;
+  @ViewChild(Dashboard) dashboard!: Dashboard;
 
   selectedItem: Item | null = null;
 
@@ -32,6 +37,7 @@ export class App {
 
   refreshItems(): void {
     this.itemList.loadItems();
+    this.dashboard.loadDashboard();
     this.selectedItem = null;
   }
 }

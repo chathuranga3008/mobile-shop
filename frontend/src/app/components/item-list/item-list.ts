@@ -14,6 +14,7 @@ import { ItemService } from '../../services/item.service';
 export class ItemList implements OnInit {
 
   @Output() editItem = new EventEmitter<Item>();
+  @Output() itemDeleted = new EventEmitter<void>();
 
   items: Item[] = [];
   loading = false;
@@ -80,9 +81,8 @@ export class ItemList implements OnInit {
 
     this.itemService.deleteItem(id).subscribe({
       next: () => {
-        console.log('Item deleted successfully');
-
         this.loadItems();
+        this.itemDeleted.emit();
       },
       error: (error: any) => {
         console.error('Error deleting item:', error);
