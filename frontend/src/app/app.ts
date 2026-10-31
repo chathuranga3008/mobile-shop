@@ -10,7 +10,9 @@ import { Dashboard } from './components/dashboard/dashboard';
   standalone: true,
   imports: [ItemList, ItemForm, Dashboard],
   template: `
-    <app-dashboard />
+    <app-dashboard
+      (itemRestocked)="refreshItems()"
+    />
 
     <app-item-form
       [selectedItem]="selectedItem"
@@ -38,6 +40,7 @@ export class App {
   refreshItems(): void {
     this.itemList.loadItems();
     this.dashboard.loadDashboard();
+    this.dashboard.loadLowStockItems();
     this.selectedItem = null;
   }
 }

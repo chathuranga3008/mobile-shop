@@ -15,11 +15,7 @@
   </div>
 
   <div class="search-container">
-    <input
-      type="text"
-      placeholder="Search by SKU or item name..."
-      [(ngModel)]="searchTerm"
-    />
+    <input type="text" placeholder="Search by SKU or item name..." [(ngModel)]="searchTerm" />
   </div>
 
   <select [(ngModel)]="selectedBrand" (ngModelChange)="selectedCategory = ''">
@@ -42,9 +38,7 @@
       {{ filteredItems.length === 1 ? 'item' : 'items' }}
     </ng-container>
 
-    <ng-container *ngIf="filteredItems.length === 0">
-      No matching items found.
-    </ng-container>
+    <ng-container *ngIf="filteredItems.length === 0"> No matching items found. </ng-container>
   </p>
 
   <div *ngIf="loading">Loading items...</div>

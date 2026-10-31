@@ -93,3 +93,38 @@
     grid-template-columns: 1fr;
   }
 }
+
+.low-stock-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.low-stock-section h2 {
+  margin-bottom: 20px;
+  color: #dc2626;
+}
+
+.low-stock-section table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.low-stock-section th,
+.low-stock-section td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.low-stock-section th {
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+.low-stock-section .low-stock {
+  color: #dc2626;
+  font-weight: bold;
+}

@@ -1,18 +1,14 @@
 <div class="dashboard-container">
-
   <h2>Mobile Shop Dashboard</h2>
   <p class="subtitle">Inventory Overview</p>
 
-  <div *ngIf="loading" class="loading">
-    Loading dashboard...
-  </div>
+  <div *ngIf="loading" class="loading">Loading dashboard...</div>
 
   <div *ngIf="errorMessage" class="error">
     {{ errorMessage }}
   </div>
 
   <div class="dashboard-grid" *ngIf="!loading && !errorMessage">
-
     <!-- Total Items -->
     <div class="dashboard-card blue">
       <div class="card-icon">📦</div>
@@ -32,7 +28,7 @@
       <div class="card-icon">💰</div>
       <h3>Inventory Value</h3>
       <p class="card-value">
-        {{ inventoryValue | number:'1.2-2' }}
+        {{ inventoryValue | number: '1.2-2' }}
       </p>
     </div>
 
@@ -42,11 +38,43 @@
       <h3>Total Quantity</h3>
       <p class="card-value">{{ totalQuantity }}</p>
     </div>
-
   </div>
 
-  <button (click)="loadDashboard()" [disabled]="loading">
-    Refresh Dashboard
-  </button>
+  <section class="low-stock-section">
+    <h2>Low Stock Alerts</h2>
 
+    <div *ngIf="lowStockItemsList.length === 0">
+      <p>All items are sufficiently stocked!</p>
+    </div>
+
+    <div *ngIf="lowStockItemsList.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>SKU</th>
+            <th>Item Name</th>
+            <th>Current Quantity</th>
+            <th>Low Stock Threshold</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of lowStockItemsList">
+            <td>{{ item.sku }}</td>
+            <td>{{ item.name }}</td>
+            <td class="low-stock">{{ item.quantity }}</td>
+            <td>{{ item.lowStockThreshold }}</td>
+            <td>
+              <input type="number" min="1" [(ngModel)]="restockQuantity" placeholder="Quantity" />
+
+              <button type="button" (click)="restockItem(item)">Restock</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <button (click)="loadDashboard()" [disabled]="loading">Refresh Dashboard</button>
 </div>

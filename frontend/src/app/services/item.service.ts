@@ -34,6 +34,19 @@ export class ItemService {
     return this.http.put<Item>(`${this.apiUrl}/${id}`, item);
   }
 
+  // Restock item
+  restockItem(id: number, quantityToAdd: number): Observable<Item> {
+    return this.http.post<Item>(
+      `${this.apiUrl}/${id}/restock`,
+      null,
+      {
+        params: {
+          quantityToAdd: quantityToAdd.toString()
+        }
+      }
+    );
+  }
+
   // Delete item
   deleteItem(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);

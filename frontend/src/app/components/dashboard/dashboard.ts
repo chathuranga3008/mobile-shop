@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { Item } from '../../models/item.model';
 import { ItemService } from '../../services/item.service';
@@ -7,18 +8,22 @@ import { ItemService } from '../../services/item.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
 export class Dashboard implements OnInit {
 
-  items: Item[] = [];
+  @Output() itemRestocked = new EventEmitter<void>();
 
+  items: Item[] = [];
+  lowStockItemsList: Item[] = [];
+  
   totalItems = 0;
   lowStockItems = 0;
   inventoryValue = 0;
   totalQuantity = 0;
+  restockQuantity = 1;
 
   loading = false;
   errorMessage = '';
@@ -30,6 +35,7 @@ export class Dashboard implements OnInit {
 
   ngOnInit(): void {
     this.loadDashboard();
+    this.loadLowStockItems();
   }
 
   loadDashboard(): void {
@@ -72,6 +78,41 @@ export class Dashboard implements OnInit {
         this.loading = false;
 
         this.cdr.detectChanges();
+      }
+    });
+  }
+
+  loadLowStockItems(): void {
+    this.itemService.getLowStockItems().subscribe({
+      next: (data: Item[]) => {
+        this.lowStockItemsList = data;
+        this.cdr.detectChanges();
+      },
+      error: (error: any) => {
+        console.error('Error loading low-stock items:', error);
+      }
+    });
+  }
+
+  restockItem(item: Item): void {
+    if (!Number.isInteger(this.restockQuantity) || this.restockQuantity <= 0) {
+      alert('Please enter a valid whole number greater than 0.');
+      return;
+    }
+
+    this.itemService.restockItem(item.id, this.restockQuantity).subscribe({
+      next: () => {
+        alert('Item restocked successfully!');
+
+        this.itemRestocked.emit();
+
+        this.restockQuantity = 1;
+        this.loadDashboard();
+        this.loadLowStockItems();
+      },
+      error: (error) => {
+        console.error('Restock error:', error);
+        alert('Failed to restock item. Please try again.');
       }
     });
   }

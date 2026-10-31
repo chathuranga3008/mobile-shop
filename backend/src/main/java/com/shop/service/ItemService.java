@@ -98,6 +98,22 @@ public class ItemService {
         return items.stream().findFirst();
     }
 
+    // Restock item
+    public Optional<ItemResponseDto> restockItem(
+            Long id,
+            int quantityToAdd
+    ) {
+
+        List<ItemResponseDto> items = jdbcTemplate.query(
+                "CALL sp_restock_item(?, ?)",
+                itemMapper,
+                id,
+                quantityToAdd
+        );
+
+        return items.stream().findFirst();
+    }
+
     // Delete item
     public boolean deleteItem(Long id) {
 

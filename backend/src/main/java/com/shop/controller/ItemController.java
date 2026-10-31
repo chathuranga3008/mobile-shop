@@ -77,6 +77,17 @@ public class ItemController {
         return ResponseEntity.noContent().build();
     }
 
+    // Restock item
+    @PostMapping("/{id}/restock")
+    public ResponseEntity<ItemResponseDto> restockItem(
+            @PathVariable Long id,
+            @RequestParam int quantityToAdd
+    ) {
+        return itemService.restockItem(id, quantityToAdd)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     // Get low-stock items
     @GetMapping("/low-stock")
     public List<ItemResponseDto> getLowStockItems() {
