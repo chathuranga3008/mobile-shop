@@ -48,7 +48,7 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (1,'PHN-SAM-001','Galaxy A56','Samsung','Mobile',119900.00,15,5,'2026-10-29 16:47:29'),(2,'PHN-APP-001','iPhone 16','Apple','Mobile',255000.00,8,3,'2026-10-29 16:47:29'),(3,'ACC-CHR-001','Fast Charger 25W','Samsung','Charger',5490.00,20,5,'2026-10-29 16:47:29'),(4,'ACC-CAS-001','Silicone Phone Case','Generic','Case',1000.00,3,5,'2026-10-29 16:47:29'),(5,'ACC-EAR-001','Wireless Earbuds','Anker','Audio',5500.00,12,4,'2026-10-29 16:53:38'),(6,'ACC-CAS-002','Silicone Phone Case','Generic','Case',1000.00,10,5,'2026-10-29 17:05:08'),(8,'PHN-XIA-001','Redmi Note 14 5G','Xiaomi','Mobile',69500.00,8,5,'2026-10-30 14:03:39');
+INSERT INTO `items` VALUES (1,'PHN-SAM-001','Galaxy A56','Samsung','Mobile',119900.00,15,5,'2026-10-29 16:47:29'),(2,'PHN-APP-001','iPhone 16','Apple','Mobile',255000.00,8,3,'2026-10-29 16:47:29'),(3,'ACC-CHR-001','Fast Charger 25W','Samsung','Charger',5490.00,20,5,'2026-10-29 16:47:29'),(4,'ACC-CAS-001','Silicone Phone Case','Generic','Case',1000.00,18,5,'2026-10-29 16:47:29'),(5,'ACC-EAR-001','Wireless Earbuds','Anker','Audio',5500.00,12,4,'2026-10-29 16:53:38'),(6,'ACC-CAS-002','Silicone Phone Case','Generic','Case',1000.00,10,5,'2026-10-29 17:05:08'),(8,'PHN-XIA-001','Redmi Note 14 5G','Xiaomi','Mobile',69500.00,8,5,'2026-10-30 14:03:39');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

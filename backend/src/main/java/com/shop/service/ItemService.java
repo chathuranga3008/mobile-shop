@@ -3,6 +3,7 @@ package com.shop.service;
 import com.shop.dto.ItemRequestDto;
 import com.shop.dto.ItemResponseDto;
 
+import com.shop.dto.StockMovementResponseDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
@@ -132,6 +133,25 @@ public class ItemService {
         return jdbcTemplate.query(
                 "CALL sp_get_low_stock_items()",
                 itemMapper
+        );
+    }
+
+    public List<StockMovementResponseDto> getStockMovements() {
+
+        String sql = "CALL sp_get_stock_movements()";
+
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                new StockMovementResponseDto(
+                        rs.getLong("id"),
+                        rs.getLong("item_id"),
+                        rs.getString("item_name"),
+                        rs.getString("sku"),
+                        rs.getInt("previous_quantity"),
+                        rs.getInt("quantity_changed"),
+                        rs.getInt("new_quantity"),
+                        rs.getString("movement_type"),
+                        rs.getTimestamp("created_at").toLocalDateTime()
+                )
         );
     }
 }

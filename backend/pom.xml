@@ -13,10 +13,10 @@
     </parent>
 
     <groupId>com.shop</groupId>
-    <artifactId>mobile-shop-backend</artifactId>
+    <artifactId>backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>mobile-shop-backend</name>
+    <name>backend</name>
     <description>Mobile Shop Management System Backend</description>
 
     <properties>

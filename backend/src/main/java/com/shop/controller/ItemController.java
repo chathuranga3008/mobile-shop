@@ -2,6 +2,7 @@ package com.shop.controller;
 
 import com.shop.dto.ItemRequestDto;
 import com.shop.dto.ItemResponseDto;
+import com.shop.dto.StockMovementResponseDto;
 import com.shop.service.ItemService;
 
 import jakarta.validation.Valid;
@@ -92,5 +93,10 @@ public class ItemController {
     @GetMapping("/low-stock")
     public List<ItemResponseDto> getLowStockItems() {
         return itemService.getLowStockItems();
+    }
+
+    @GetMapping("/stock-movements")
+    public ResponseEntity<List<StockMovementResponseDto>> getStockMovements() {
+        return ResponseEntity.ok(itemService.getStockMovements());
     }
 }

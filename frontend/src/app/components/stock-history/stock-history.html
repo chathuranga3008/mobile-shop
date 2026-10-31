@@ -1,0 +1,51 @@
+<div class="stock-history-container">
+
+  <h2>Stock Movement History</h2>
+
+  <div *ngIf="loading">
+    Loading stock movement history...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!loading && !errorMessage">
+
+    <p *ngIf="movements.length === 0">
+      No stock movement records found.
+    </p>
+
+    <table *ngIf="movements.length > 0">
+
+      <thead>
+        <tr>
+          <th>Date & Time</th>
+          <th>SKU</th>
+          <th>Item Name</th>
+          <th>Previous Stock</th>
+          <th>Added</th>
+          <th>New Stock</th>
+          <th>Movement Type</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let movement of movements">
+          <td>{{ movement.createdAt | date:'medium' }}</td>
+          <td>{{ movement.sku }}</td>
+          <td>{{ movement.itemName }}</td>
+          <td>{{ movement.previousQuantity }}</td>
+          <td class="quantity-added">
+            +{{ movement.quantityChanged }}
+          </td>
+          <td>{{ movement.newQuantity }}</td>
+          <td>{{ movement.movementType }}</td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Item } from '../models/item.model';
+import { StockMovement } from '../models/stock-movement.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -55,5 +56,12 @@ export class ItemService {
   // Get low-stock items
   getLowStockItems(): Observable<Item[]> {
     return this.http.get<Item[]>(`${this.apiUrl}/low-stock`);
+  }
+
+  // Get stock movements
+  getStockMovements(): Observable<StockMovement[]> {
+    return this.http.get<StockMovement[]>(
+      `${this.apiUrl}/stock-movements`
+    );
   }
 }

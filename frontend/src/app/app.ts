@@ -4,11 +4,12 @@ import { ItemList } from './components/item-list/item-list';
 import { ItemForm } from './components/item-form/item-form';
 import { Item } from './models/item.model';
 import { Dashboard } from './components/dashboard/dashboard';
+import { StockHistory } from './components/stock-history/stock-history';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ItemList, ItemForm, Dashboard],
+  imports: [ItemList, ItemForm, Dashboard, StockHistory],
   template: `
     <app-dashboard
       (itemRestocked)="refreshItems()"
@@ -23,6 +24,8 @@ import { Dashboard } from './components/dashboard/dashboard';
       (editItem)="onEditItem($event)"
       (itemDeleted)="refreshItems()"
     />
+
+    <app-stock-history></app-stock-history>
   `,
   styleUrl: './app.css'
 })
