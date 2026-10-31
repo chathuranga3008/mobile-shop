@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { Item } from '../../models/item.model';
+import { ItemForm } from '../item-form/item-form';
 import { ItemService } from '../../services/item.service';
 
 @Component({
   selector: 'app-item-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ItemForm],
   templateUrl: './item-list.html',
   styleUrl: './item-list.css'
 })
@@ -18,6 +19,9 @@ export class ItemList implements OnInit {
   @Output() itemDeleted = new EventEmitter<void>();
 
   items: Item[] = [];
+
+  selectedItem: Item | null = null;
+
   searchTerm = '';
   selectedBrand = '';
   selectedCategory = ''
@@ -25,6 +29,7 @@ export class ItemList implements OnInit {
   loading = false;
   errorMessage = '';
 
+  showForm = false;
   showLowStockOnly = false;
 
   constructor(private itemService: ItemService, private cdr: ChangeDetectorRef) {}
@@ -95,6 +100,27 @@ export class ItemList implements OnInit {
         this.errorMessage = 'Failed to delete item.';
       }
     });
+  }
+
+  onEditItem(item: Item): void {
+    this.selectedItem = item;
+    this.showForm = true;
+  }
+
+  onItemSaved(): void {
+    this.selectedItem = null;
+    this.showForm = false;
+    this.loadItems();
+  }
+
+  onAddNewItem(): void {
+    this.selectedItem = null;
+    this.showForm = true;
+  }
+
+  onCloseForm(): void {
+    this.selectedItem = null;
+    this.showForm = false;
   }
 
   get filteredItems(): Item[] {

@@ -16,6 +16,7 @@ export class ItemForm implements OnChanges {
 
   @Input() selectedItem: Item | null = null;
   @Output() itemAdded = new EventEmitter<void>();
+  @Output() closeForm = new EventEmitter<void>();
   
   item = {
     sku: '',

@@ -1,5 +1,21 @@
 <div class="container">
-  <h2>Mobile Shop - Item Management</h2>
+  <div class="inventory-header">
+    <h2>Inventory Management</h2>
+
+    <div class="header-actions">
+      <button class="refresh-button" (click)="loadItems()">Refresh Items</button>
+
+      <button class="add-item-button" (click)="onAddNewItem()">+ Add New Item</button>
+    </div>
+  </div>
+
+  <app-item-form
+    *ngIf="showForm"
+    [selectedItem]="selectedItem"
+    (itemAdded)="onItemSaved()"
+    (closeForm)="onCloseForm()"
+  >
+  </app-item-form>
 
   <div class="filter-buttons">
     <button [class.active]="!showLowStockOnly" (click)="showLowStockOnly = false; loadItems()">
@@ -14,23 +30,25 @@
     </button>
   </div>
 
-  <div class="search-container">
-    <input type="text" placeholder="Search by SKU or item name..." [(ngModel)]="searchTerm" />
+  <div class="filter-toolbar">
+    <div class="search-container">
+      <input type="text" placeholder="Search by SKU or item name..." [(ngModel)]="searchTerm" />
+    </div>
+
+    <select [(ngModel)]="selectedBrand" (ngModelChange)="selectedCategory = ''">
+      <option value="">All Brands</option>
+      <option *ngFor="let brand of brands" [value]="brand">
+        {{ brand }}
+      </option>
+    </select>
+
+    <select [(ngModel)]="selectedCategory">
+      <option value="">All Categories</option>
+      <option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </option>
+    </select>
   </div>
-
-  <select [(ngModel)]="selectedBrand" (ngModelChange)="selectedCategory = ''">
-    <option value="">All Brands</option>
-    <option *ngFor="let brand of brands" [value]="brand">
-      {{ brand }}
-    </option>
-  </select>
-
-  <select [(ngModel)]="selectedCategory">
-    <option value="">All Categories</option>
-    <option *ngFor="let category of categories" [value]="category">
-      {{ category }}
-    </option>
-  </select>
 
   <p class="result-count">
     <ng-container *ngIf="filteredItems.length > 0">
@@ -75,7 +93,7 @@
         </td>
         <td>{{ item.lowStockThreshold }}</td>
         <td>
-          <button (click)="editItem.emit(item)">Edit</button>
+          <button (click)="onEditItem(item)">Edit</button>
           <button class="delete-button" (click)="deleteItem(item.id)">Delete</button>
         </td>
       </tr>
@@ -85,6 +103,4 @@
       </tr>
     </tbody>
   </table>
-
-  <button (click)="loadItems()">Refresh Items</button>
 </div>
