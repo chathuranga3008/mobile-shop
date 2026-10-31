@@ -129,13 +129,16 @@ tbody tr:last-child td {
 
 /* Action buttons */
 td button {
-  padding: 7px 12px;
+  width: 65px;
+  height: 32px;
+  padding: 0;
   border: none;
   border-radius: 5px;
   background: #2563eb;
   color: white;
   cursor: pointer;
   font-size: 12px;
+  font-weight: 600;
   margin-right: 5px;
 }
 

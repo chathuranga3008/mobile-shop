@@ -1,51 +1,101 @@
 <div class="stock-history-container">
+  <div class="history-header">
+    <h2>Stock Movement History</h2>
 
-  <h2>Stock Movement History</h2>
-
-  <div *ngIf="loading">
-    Loading stock movement history...
+    <button class="refresh-button" (click)="loadStockMovements()">Refresh History</button>
   </div>
+
+  <div *ngIf="loading" class="loading-message">Loading stock movement history...</div>
 
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>
 
   <div *ngIf="!loading && !errorMessage">
+    <div class="history-filters">
+      <div class="filter-group">
+        <label>From Date</label>
+        <input type="date" [(ngModel)]="startDate" />
+      </div>
 
-    <p *ngIf="movements.length === 0">
+      <div class="filter-group">
+        <label>To Date</label>
+        <input type="date" [(ngModel)]="endDate" />
+      </div>
+
+      <div class="filter-group">
+        <label>Search SKU</label>
+        <input type="text" placeholder="Enter SKU..." [(ngModel)]="searchSku" />
+      </div>
+
+      <div class="filter-group">
+        <label>Search Item Name</label>
+        <input type="text" placeholder="Enter item name..." [(ngModel)]="searchItemName" />
+      </div>
+
+      <div class="filter-group">
+        <label>Movement Type</label>
+        <select [(ngModel)]="selectedMovementType">
+          <option value="">All Movement Types</option>
+          <option *ngFor="let type of movementTypes" [value]="type">
+            {{ type }}
+          </option>
+        </select>
+      </div>
+
+      <button
+        class="clear-filter-button"
+        (click)="
+          startDate = '';
+          endDate = '';
+          searchSku = '';
+          searchItemName = '';
+          selectedMovementType = ''
+        "
+      >
+        Clear Filters
+      </button>
+    </div>
+
+    <p class="result-count">
+      Showing {{ filteredMovements.length }}
+      {{ filteredMovements.length === 1 ? 'record' : 'records' }}
+    </p>
+
+    <p *ngIf="filteredMovements.length === 0" class="empty-message">
       No stock movement records found.
     </p>
 
-    <table *ngIf="movements.length > 0">
+    <div class="table-container" *ngIf="filteredMovements.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>Date & Time</th>
+            <th>SKU</th>
+            <th>Item Name</th>
+            <th>Previous Stock</th>
+            <th>Added</th>
+            <th>New Stock</th>
+            <th>Movement Type</th>
+          </tr>
+        </thead>
 
-      <thead>
-        <tr>
-          <th>Date & Time</th>
-          <th>SKU</th>
-          <th>Item Name</th>
-          <th>Previous Stock</th>
-          <th>Added</th>
-          <th>New Stock</th>
-          <th>Movement Type</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr *ngFor="let movement of movements">
-          <td>{{ movement.createdAt | date:'medium' }}</td>
-          <td>{{ movement.sku }}</td>
-          <td>{{ movement.itemName }}</td>
-          <td>{{ movement.previousQuantity }}</td>
-          <td class="quantity-added">
-            +{{ movement.quantityChanged }}
-          </td>
-          <td>{{ movement.newQuantity }}</td>
-          <td>{{ movement.movementType }}</td>
-        </tr>
-      </tbody>
-
-    </table>
-
+        <tbody>
+          <tr *ngFor="let movement of filteredMovements">
+            <td>{{ movement.createdAt | date: 'medium' }}</td>
+            <td>{{ movement.sku }}</td>
+            <td>{{ movement.itemName }}</td>
+            <td>{{ movement.previousQuantity }}</td>
+            <td class="quantity-added">+{{ movement.quantityChanged }}</td>
+            <td>{{ movement.newQuantity }}</td>
+            <td>
+              <span class="movement-badge" [ngClass]="movement.movementType.toLowerCase()">
+                {{ movement.movementType }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-
 </div>
