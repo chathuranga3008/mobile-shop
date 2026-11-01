@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive} from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,27 +12,24 @@ import { RouterOutlet, RouterLink, RouterLinkActive} from '@angular/router';
         <div class="logo">
           <h2>Mobile Shop</h2>
         </div>
-
+          
         <nav>
-          <nav>
-            <a routerLink="/dashboard" routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }">
-              Dashboard
-            </a>
+          <a routerLink="/dashboard" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
+            Dashboard
+          </a>
 
-            <a routerLink="/inventory" routerLinkActive="active">
-              Inventory
-            </a>
+          <a routerLink="/inventory" routerLinkActive="active">
+            Inventory
+          </a>
 
-            <a routerLink="/stock-history" routerLinkActive="active">
-              Stock History
-            </a>
-          </nav>
+          <a routerLink="/stock-history" routerLinkActive="active">
+            Stock History
+          </a>
         </nav>
       </aside>
 
       <div class="main-section">
-
         <header class="topbar">
           <h2>Mobile Shop Management System</h2>
         </header>
@@ -40,7 +37,6 @@ import { RouterOutlet, RouterLink, RouterLinkActive} from '@angular/router';
         <main class="page-content">
           <router-outlet></router-outlet>
         </main>
-
       </div>
 
     </div>

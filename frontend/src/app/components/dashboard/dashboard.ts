@@ -18,11 +18,14 @@ export class Dashboard implements OnInit {
 
   items: Item[] = [];
   lowStockItemsList: Item[] = [];
-  
+
   totalItems = 0;
   lowStockItems = 0;
   inventoryValue = 0;
   totalQuantity = 0;
+  healthyStockItems = 0;
+  outOfStockItems = 0;
+  lowStockOnlyItems = 0;
   restockQuantity = 1;
 
   loading = false;
@@ -31,7 +34,7 @@ export class Dashboard implements OnInit {
   constructor(
     private itemService: ItemService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadDashboard();
@@ -47,25 +50,31 @@ export class Dashboard implements OnInit {
 
         this.items = data;
 
-        // Total number of inventory records
+        // Calculate inventory statistics in one pass
         this.totalItems = this.items.length;
+        this.lowStockItems = 0;
+        this.inventoryValue = 0;
+        this.totalQuantity = 0;
+        this.healthyStockItems = 0;
+        this.outOfStockItems = 0;
+        this.lowStockOnlyItems = 0;
 
-        // Number of items that have low stock
-        this.lowStockItems = this.items.filter(
-          item => item.quantity <= item.lowStockThreshold
-        ).length;
+        for (const item of this.items) {
+          this.inventoryValue += item.price * item.quantity;
+          this.totalQuantity += item.quantity;
 
-        // Total inventory value
-        this.inventoryValue = this.items.reduce(
-          (total, item) => total + (item.price * item.quantity),
-          0
-        );
+          if (item.quantity === 0) {
+            this.outOfStockItems++;
+          } else if (item.quantity <= item.lowStockThreshold) {
+            this.lowStockItems++;
+            this.lowStockOnlyItems++;
+          } else {
+            this.healthyStockItems++;
+          }
+        }
 
-        // Total units available
-        this.totalQuantity = this.items.reduce(
-          (total, item) => total + item.quantity,
-          0
-        );
+        this.lowStockItems =
+          this.lowStockOnlyItems + this.outOfStockItems;
 
         this.loading = false;
         this.cdr.detectChanges();
@@ -76,7 +85,6 @@ export class Dashboard implements OnInit {
 
         this.errorMessage = 'Failed to load dashboard data.';
         this.loading = false;
-
         this.cdr.detectChanges();
       }
     });
@@ -90,6 +98,7 @@ export class Dashboard implements OnInit {
       },
       error: (error: any) => {
         console.error('Error loading low-stock items:', error);
+        this.cdr.detectChanges();
       }
     });
   }

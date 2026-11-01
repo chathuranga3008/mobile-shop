@@ -40,6 +40,76 @@
     </div>
   </div>
 
+  <section class="stock-distribution-section">
+    <h2>Stock Distribution</h2>
+
+    <div class="stock-chart-container">
+      <div
+        class="stock-doughnut"
+        [style.background]="
+          'conic-gradient(' +
+          '#22c55e 0 ' +
+          (totalItems > 0 ? (healthyStockItems / totalItems) * 100 : 0) +
+          '%,' +
+          '#facc15 ' +
+          (totalItems > 0 ? (healthyStockItems / totalItems) * 100 : 0) +
+          '% ' +
+          (totalItems > 0 ? ((healthyStockItems + lowStockOnlyItems) / totalItems) * 100 : 0) +
+          '%,' +
+          '#ef4444 ' +
+          (totalItems > 0 ? ((healthyStockItems + lowStockOnlyItems) / totalItems) * 100 : 0) +
+          '% 100%)'
+        "
+      >
+        <div class="doughnut-center">
+          <strong>{{ totalItems }}</strong>
+          <span>Total Items</span>
+        </div>
+      </div>
+
+      <div class="distribution-legend">
+        <div>
+          <span class="legend-dot healthy"></span>
+          Healthy Stock
+          <strong>{{ healthyStockItems }}</strong>
+        </div>
+
+        <div>
+          <span class="legend-dot low"></span>
+          Low Stock
+          <strong>{{ lowStockOnlyItems }}</strong>
+        </div>
+
+        <div>
+          <span class="legend-dot out"></span>
+          Out of Stock
+          <strong>{{ outOfStockItems }}</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sales-purchase-section">
+    <h2>Sales & Purchase</h2>
+    <p class="coming-soon">
+      Sales and purchase analytics will appear here once those features are implemented.
+    </p>
+  </section>
+
+  <section class="recent-orders-section">
+    <h2>Recent Orders</h2>
+    <p class="coming-soon">
+      Recent order details will appear here once order management is implemented.
+    </p>
+  </section>
+
+  <section class="top-customers-section">
+    <h2>Weekly Top Customers</h2>
+    <p class="coming-soon">
+      Customer rankings will appear here once customer and sales management are implemented.
+    </p>
+  </section>
+
   <section class="low-stock-section">
     <h2>Low Stock Alerts</h2>
 
@@ -48,31 +118,40 @@
     </div>
 
     <div *ngIf="lowStockItemsList.length > 0">
-      <table>
-        <thead>
-          <tr>
-            <th>SKU</th>
-            <th>Item Name</th>
-            <th>Current Quantity</th>
-            <th>Low Stock Threshold</th>
-            <th>Action</th>
-          </tr>
-        </thead>
+      <div class="low-stock-table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>SKU</th>
+              <th>Item Name</th>
+              <th>Current Quantity</th>
+              <th>Low Stock Threshold</th>
+              <th>Action</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <tr *ngFor="let item of lowStockItemsList">
-            <td>{{ item.sku }}</td>
-            <td>{{ item.name }}</td>
-            <td class="low-stock">{{ item.quantity }}</td>
-            <td>{{ item.lowStockThreshold }}</td>
-            <td>
-              <input type="number" min="1" [(ngModel)]="restockQuantity" placeholder="Quantity" />
+          <tbody>
+            <tr *ngFor="let item of lowStockItemsList">
+              <td>{{ item.sku }}</td>
+              <td>{{ item.name }}</td>
+              <td class="low-stock">{{ item.quantity }}</td>
+              <td>{{ item.lowStockThreshold }}</td>
+              <td>
+                <div class="restock-controls">
+                  <input
+                    type="number"
+                    min="1"
+                    [(ngModel)]="restockQuantity"
+                    placeholder="Quantity"
+                  />
 
-              <button type="button" (click)="restockItem(item)">Restock</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                  <button type="button" (click)="restockItem(item)">Restock</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 

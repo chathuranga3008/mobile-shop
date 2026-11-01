@@ -1,3 +1,5 @@
+
+/* Form container */
 .form-container {
   max-width: 850px;
   margin: 25px auto;
@@ -14,6 +16,35 @@
   font-weight: 600;
 }
 
+/* Form heading */
+.form-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.form-heading h2 {
+  margin-bottom: 0;
+}
+
+/* Close form button */
+.close-form-button {
+  padding: 8px 13px;
+  background: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.close-form-button:hover {
+  background: #fecaca;
+}
+
 /* Two-column form layout */
 .form-container form {
   display: grid;
@@ -28,20 +59,20 @@
 .form-group label {
   display: block;
   margin-bottom: 8px;
+  color: #475569;
   font-size: 14px;
   font-weight: 600;
-  color: #475569;
 }
 
 .form-group input {
+  box-sizing: border-box;
   width: 100%;
   height: 42px;
   padding: 10px 12px;
   border: 1px solid #dbe3ef;
   border-radius: 7px;
-  box-sizing: border-box;
-  font-size: 14px;
   color: #334155;
+  font-size: 14px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -51,7 +82,7 @@
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-/* Save and Update buttons */
+/* Save and update buttons */
 .form-container form button {
   grid-column: 1 / -1;
   width: 100%;
@@ -76,26 +107,26 @@
   cursor: not-allowed;
 }
 
-/* Messages */
-.success {
-  color: #15803d;
+/* Success and error messages */
+.success,
+.error {
   margin-top: 15px;
   padding: 10px;
-  background: #f0fdf4;
   border-radius: 6px;
   font-size: 14px;
+}
+
+.success {
+  background: #f0fdf4;
+  color: #15803d;
 }
 
 .error {
-  color: #dc2626;
-  margin-top: 15px;
-  padding: 10px;
   background: #fef2f2;
-  border-radius: 6px;
-  font-size: 14px;
+  color: #dc2626;
 }
 
-/* Mobile layout */
+/* Mobile responsive layout */
 @media (max-width: 650px) {
   .form-container {
     padding: 18px;
@@ -108,31 +139,4 @@
   .form-container form button {
     grid-column: 1;
   }
-}
-
-.form-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-}
-
-.form-heading h2 {
-  margin-bottom: 0;
-}
-
-.close-form-button {
-  padding: 8px 13px;
-  background: #fee2e2;
-  color: #dc2626;
-  border: none;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.close-form-button:hover {
-  background: #fecaca;
 }
