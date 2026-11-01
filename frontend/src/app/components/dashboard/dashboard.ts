@@ -1,9 +1,18 @@
-import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  Output,
+  EventEmitter
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { Item } from '../../models/item.model';
 import { ItemService } from '../../services/item.service';
+import { DashboardService } from '../../services/dashboard.service';
+import { DashboardSummary } from '../../models/dashboard-summary.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +28,8 @@ export class Dashboard implements OnInit {
   items: Item[] = [];
   lowStockItemsList: Item[] = [];
 
+  dashboardSummary: DashboardSummary | null = null;
+
   totalItems = 0;
   lowStockItems = 0;
   inventoryValue = 0;
@@ -26,68 +37,120 @@ export class Dashboard implements OnInit {
   healthyStockItems = 0;
   outOfStockItems = 0;
   lowStockOnlyItems = 0;
+
+  totalSales = 0;
+  totalRevenue = 0;
+  totalUnitsSold = 0;
+
   restockQuantity = 1;
+
+  startDate = '';
+  endDate = '';
 
   loading = false;
   errorMessage = '';
 
   constructor(
     private itemService: ItemService,
+    private dashboardService: DashboardService,
     private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
+    this.setDefaultDateRange();
     this.loadDashboard();
     this.loadLowStockItems();
+  }
+
+  setDefaultDateRange(): void {
+    const today = new Date();
+
+    const firstDay = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      1
+    );
+
+    this.startDate = this.formatDate(firstDay);
+    this.endDate = this.formatDate(today);
+  }
+
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 
   loadDashboard(): void {
     this.loading = true;
     this.errorMessage = '';
 
+    // Load inventory items for the stock distribution
     this.itemService.getAllItems().subscribe({
       next: (data: Item[]) => {
-
         this.items = data;
-
-        // Calculate inventory statistics in one pass
-        this.totalItems = this.items.length;
-        this.lowStockItems = 0;
-        this.inventoryValue = 0;
-        this.totalQuantity = 0;
-        this.healthyStockItems = 0;
-        this.outOfStockItems = 0;
-        this.lowStockOnlyItems = 0;
-
-        for (const item of this.items) {
-          this.inventoryValue += item.price * item.quantity;
-          this.totalQuantity += item.quantity;
-
-          if (item.quantity === 0) {
-            this.outOfStockItems++;
-          } else if (item.quantity <= item.lowStockThreshold) {
-            this.lowStockItems++;
-            this.lowStockOnlyItems++;
-          } else {
-            this.healthyStockItems++;
-          }
-        }
-
-        this.lowStockItems =
-          this.lowStockOnlyItems + this.outOfStockItems;
-
         this.loading = false;
         this.cdr.detectChanges();
       },
-
       error: (error: any) => {
-        console.error('Dashboard loading error:', error);
-
+        console.error('Dashboard inventory loading error:', error);
         this.errorMessage = 'Failed to load dashboard data.';
         this.loading = false;
         this.cdr.detectChanges();
       }
     });
+
+    // Load dashboard statistics from the backend
+    this.loadDashboardSummary();
+  }
+
+  loadDashboardSummary(): void {
+    if (!this.startDate || !this.endDate) {
+      return;
+    }
+
+    if (this.startDate > this.endDate) {
+      this.errorMessage = 'Start date cannot be after end date.';
+      return;
+    }
+
+    this.dashboardService.getDashboardSummary(
+      this.startDate,
+      this.endDate
+    ).subscribe({
+      next: (data: DashboardSummary) => {
+        this.dashboardSummary = data;
+
+        this.totalItems = data.totalItems;
+        this.totalQuantity = data.totalQuantity;
+
+        this.healthyStockItems = data.healthyStockItems;
+        this.lowStockOnlyItems = data.lowStockItems;
+        this.outOfStockItems = data.outOfStockItems;
+
+        this.lowStockItems =
+          data.lowStockItems + data.outOfStockItems;
+
+        this.inventoryValue = data.potentialStockSalesValue;
+
+        this.totalSales = data.totalSales;
+        this.totalRevenue = data.totalRevenue;
+        this.totalUnitsSold = data.totalUnitsSold;
+
+        this.cdr.detectChanges();
+      },
+      error: (error: any) => {
+        console.error('Dashboard summary loading error:', error);
+        this.errorMessage = 'Failed to load dashboard statistics.';
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  applyDateFilter(): void {
+    this.loadDashboardSummary();
   }
 
   loadLowStockItems(): void {

@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StockMovement } from '../../models/stock-movement.model';
+
+import { StockMovement } from '../../models/item.model';
 import { ItemService } from '../../services/item.service';
 import { FormsModule } from '@angular/forms';
 
@@ -27,7 +28,7 @@ export class StockHistory implements OnInit {
   constructor(
     private itemService: ItemService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadStockMovements();
@@ -104,7 +105,7 @@ export class StockHistory implements OnInit {
           return false;
         }
 
-          return true;
+        return true;
       })
       .sort((a, b) => {
         const dateA = new Date(a.createdAt).getTime();

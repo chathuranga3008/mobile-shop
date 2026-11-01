@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Item } from '../models/item.model';
-import { StockMovement } from '../models/stock-movement.model';
+import { Item, StockMovement } from '../models/item.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -13,7 +12,7 @@ export class ItemService {
 
   private apiUrl = `${environment.apiUrl}/items`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Get all items
   getAllItems(): Observable<Item[]> {
