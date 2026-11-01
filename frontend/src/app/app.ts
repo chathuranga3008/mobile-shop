@@ -30,6 +30,10 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
           <a routerLink="/sales" routerLinkActive="active">
             Sales
           </a>
+
+          <a routerLink="/sales-history" routerLinkActive="active">
+            Sales History
+          </a>
         </nav>
       </aside>
 

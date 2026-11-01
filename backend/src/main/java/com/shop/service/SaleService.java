@@ -1,5 +1,7 @@
 package com.shop.service;
 
+import com.shop.dto.SaleDetailResponseDto;
+import com.shop.dto.SaleHistoryResponseDto;
 import com.shop.dto.SaleRequestDto;
 import com.shop.dto.SaleResponseDto;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -8,6 +10,7 @@ import tools.jackson.core.JacksonException;
 import tools.jackson.databind.json.JsonMapper;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 public class SaleService {
@@ -54,5 +57,43 @@ public class SaleService {
                     "Failed to convert sale items to JSON", e
             );
         }
+    }
+
+    // Get sales history
+    public List<SaleHistoryResponseDto> getSalesHistory() {
+
+        return jdbcTemplate.query(
+                "CALL sp_get_sales_history()",
+                (rs, rowNum) -> new SaleHistoryResponseDto(
+                        rs.getLong("sale_id"),
+                        rs.getString("sale_number"),
+                        rs.getTimestamp("sale_date").toLocalDateTime(),
+                        rs.getBigDecimal("total_amount"),
+                        rs.getLong("product_count"),
+                        rs.getLong("total_quantity")
+                )
+        );
+    }
+
+    // Get sale details
+    public List<SaleDetailResponseDto> getSaleDetails(Long saleId) {
+
+        return jdbcTemplate.query(
+                "CALL sp_get_sale_details(?)",
+                (rs, rowNum) -> new SaleDetailResponseDto(
+                        rs.getLong("sale_id"),
+                        rs.getString("sale_number"),
+                        rs.getTimestamp("sale_date").toLocalDateTime(),
+                        rs.getBigDecimal("total_amount"),
+                        rs.getLong("sale_item_id"),
+                        rs.getLong("item_id"),
+                        rs.getString("sku"),
+                        rs.getString("item_name"),
+                        rs.getInt("quantity"),
+                        rs.getBigDecimal("unit_price"),
+                        rs.getBigDecimal("subtotal")
+                ),
+                saleId
+        );
     }
 }

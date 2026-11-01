@@ -1,0 +1,163 @@
+<div class="sales-history-container">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h2>Sales History</h2>
+      <p class="subtitle">View and manage completed sales</p>
+    </div>
+  </div>
+
+  <!-- Search and Filters -->
+  <div class="filter-card">
+
+    <div class="filter-group">
+      <label>Search Sale Number</label>
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="filterSales()"
+        placeholder="Enter sale number"
+      />
+    </div>
+
+    <div class="filter-group">
+      <label>From Date</label>
+      <input
+        type="date"
+        [(ngModel)]="startDate"
+        (change)="filterSales()"
+      />
+    </div>
+
+    <div class="filter-group">
+      <label>To Date</label>
+      <input
+        type="date"
+        [(ngModel)]="endDate"
+        (change)="filterSales()"
+      />
+    </div>
+
+    <button
+      type="button"
+      class="clear-btn"
+      (click)="searchTerm = ''; startDate = ''; endDate = ''; filterSales()"
+    >
+      Clear Filters
+    </button>
+
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading Message -->
+  <div *ngIf="loading" class="loading-message">
+    Loading sales history...
+  </div>
+
+  <!-- Sales History Table -->
+  <div
+    class="table-card"
+    *ngIf="!loading && selectedSale.length === 0"
+  >
+
+    <table>
+      <thead>
+        <tr>
+          <th>Sale Number</th>
+          <th>Date & Time</th>
+          <th>Products</th>
+          <th>Total Quantity</th>
+          <th>Total Amount</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let sale of filteredSales">
+          <td>{{ sale.saleNumber }}</td>
+          <td>{{ sale.saleDate | date: 'medium' }}</td>
+          <td>{{ sale.productCount }}</td>
+          <td>{{ sale.totalQuantity }}</td>
+          <td>{{ sale.totalAmount | number: '1.2-2' }}</td>
+
+          <td>
+            <button
+              type="button"
+              class="view-btn"
+              (click)="viewSaleDetails(sale.saleId)"
+            >
+              View Details
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="filteredSales.length === 0">
+          <td colspan="6" class="empty-message">
+            No sales found.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <!-- Sale Details -->
+  <div
+    class="details-card"
+    *ngIf="selectedSale.length > 0"
+  >
+
+    <div class="details-header">
+      <div>
+        <h3>Sale Details</h3>
+        <p>Sale Number: {{ selectedSale[0].saleNumber }}</p>
+        <p>Date: {{ selectedSale[0].saleDate | date: 'medium' }}</p>
+      </div>
+
+      <button
+        type="button"
+        class="back-btn"
+        (click)="closeSaleDetails()"
+      >
+        Back to Sales
+      </button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of selectedSale">
+          <td>{{ item.sku }}</td>
+          <td>{{ item.itemName }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.unitPrice | number: '1.2-2' }}</td>
+          <td>{{ item.subtotal | number: '1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Sale Total -->
+    <div class="total-section">
+      <strong>
+        Total Amount:
+        {{ selectedSale[0].totalAmount | number: '1.2-2' }}
+      </strong>
+    </div>
+
+  </div>
+
+</div>
