@@ -26,6 +26,10 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
           <a routerLink="/stock-history" routerLinkActive="active">
             Stock History
           </a>
+
+          <a routerLink="/sales" routerLinkActive="active">
+            Sales
+          </a>
         </nav>
       </aside>
 

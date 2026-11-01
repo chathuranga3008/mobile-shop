@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Global page styling */
+html,
+body {
+  min-height: 100%;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f4f6f9;
+}
