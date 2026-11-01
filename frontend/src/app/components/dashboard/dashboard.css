@@ -1,26 +1,7 @@
 
 /* Dashboard layout */
 .dashboard-container {
-  width: 100%;
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 15px;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  color: #263445;
-}
-
-.dashboard-container h2 {
-  color: #1e293b;
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-.subtitle {
-  color: #64748b;
-  font-size: 14px;
-  margin-bottom: 25px;
+  padding: var(--page-padding);
 }
 
 /* Dashboard statistics */
@@ -32,10 +13,10 @@
 
 .dashboard-card {
   min-width: 0;
-  padding: 24px;
-  border-radius: 12px;
-  background: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: var(--card-padding);
+  border-radius: var(--card-radius);
+  background: var(--card-background);
+  box-shadow: var(--card-shadow);
   border-left: 5px solid;
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -47,7 +28,7 @@
 
 .dashboard-card h3 {
   margin: 10px 0;
-  color: #475569;
+  color: var(--text-secondary);
   font-size: 15px;
   font-weight: 600;
 }
@@ -59,7 +40,7 @@
 .card-value {
   font-size: 26px;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--text-primary);
   margin: 10px 0 0;
   white-space: nowrap;
   overflow-wrap: normal;
@@ -67,11 +48,11 @@
 
 /* Statistics card colours */
 .blue {
-  border-color: #2563eb;
+  border-color: var(--primary);
 }
 
 .red {
-  border-color: #dc2626;
+  border-color: var(--danger);
 }
 
 .green {
@@ -82,25 +63,28 @@
   border-color: #7c3aed;
 }
 
-/* Shared dashboard section styling */
+/* Dashboard section cards */
+.low-stock-section,
+.stock-distribution-section,
+.sales-purchase-section,
+.recent-orders-section,
+.top-customers-section {
+  background: var(--card-background);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+
 .low-stock-section,
 .stock-distribution-section,
 .sales-purchase-section,
 .recent-orders-section {
   margin-top: 25px;
   padding: 25px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Top customers section */
 .top-customers-section {
   margin-top: 20px;
   padding: 20px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 /* Consistent section heading typography */
@@ -126,7 +110,7 @@
 
 .low-stock-section h2 {
   margin-bottom: 20px;
-  color: #dc2626;
+  color: var(--danger);
 }
 
 .low-stock-section table {
@@ -145,19 +129,15 @@
 }
 
 .restock-controls input {
-  width: 95px;
-  flex: 0 0 95px;
-}
-
-.restock-controls input {
   width: 110px;
+  flex: 0 0 110px;
   height: 36px;
   margin-top: 20px;
   padding: 8px 10px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--border-color);
   border-radius: 7px;
-  background: #fff;
-  color: #263445;
+  background: var(--card-background);
+  color: var(--text-primary);
   font-size: 14px;
   text-align: center;
   outline: none;
@@ -165,8 +145,8 @@
 }
 
 .restock-controls input:focus {
-  border-color: #1769d2;
-  box-shadow: 0 0 0 2px rgba(23, 105, 210, 0.12);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
 }
 
 /* Low stock table */
@@ -174,13 +154,13 @@
 .low-stock-section td {
   padding: 14px 12px;
   text-align: left;
-  border-bottom: 1px solid #edf0f5;
+  border-bottom: 1px solid var(--border-color);
   font-size: 13px;
 }
 
 .low-stock-section th {
-  background: #f1f5f9;
-  color: #475569;
+  background: var(--table-header-background);
+  color: var(--text-secondary);
   font-weight: 600;
 }
 
@@ -191,11 +171,11 @@
 }
 
 .low-stock-section tbody tr:hover {
-  background: #f8fafc;
+  background: var(--table-header-background);
 }
 
 .low-stock-section .low-stock {
-  color: #dc2626;
+  color: var(--danger);
   font-weight: 700;
 }
 
@@ -203,17 +183,17 @@
 .dashboard-container button {
   margin-top: 20px;
   padding: 11px 18px;
-  background: #2563eb;
+  background: var(--primary);
   color: white;
   border: none;
-  border-radius: 7px;
+  border-radius: var(--button-radius);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
 }
 
 .dashboard-container button:hover:not(:disabled) {
-  background: #1d4ed8;
+  background: var(--primary-hover);
 }
 
 .dashboard-container button:disabled {
@@ -223,19 +203,19 @@
 
 /* Loading and error messages */
 .loading {
-  color: #2563eb;
+  color: var(--primary);
   margin: 20px 0;
 }
 
 .error {
-  color: #dc2626;
+  color: var(--danger);
   margin: 20px 0;
 }
 
 /* Stock distribution */
 .stock-distribution-section h2 {
   margin-bottom: 25px;
-  color: #1e293b;
+  color: var(--text-primary);
 }
 
 /* Doughnut chart layout */
@@ -262,7 +242,7 @@
   width: 135px;
   height: 135px;
   border-radius: 50%;
-  background: white;
+  background: var(--card-background);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -271,12 +251,12 @@
 
 .doughnut-center strong {
   font-size: 28px;
-  color: #1e293b;
+  color: var(--text-primary);
 }
 
 .doughnut-center span {
   font-size: 12px;
-  color: #64748b;
+  color: var(--text-muted);
   margin-top: 5px;
 }
 
@@ -291,13 +271,13 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #475569;
+  color: var(--text-secondary);
   font-size: 14px;
 }
 
 .distribution-legend strong {
   margin-left: auto;
-  color: #1e293b;
+  color: var(--text-primary);
 }
 
 .legend-dot {
@@ -323,12 +303,12 @@
 .sales-purchase-section h2,
 .recent-orders-section h2 {
   margin-bottom: 15px;
-  color: #1e293b;
+  color: var(--text-primary);
 }
 
 /* Placeholder content */
 .coming-soon {
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 14px;
   padding: 30px 0;
   text-align: center;
@@ -336,12 +316,10 @@
 
 .top-customers-section h2 {
   margin-bottom: 15px;
-  color: #263445;
+  color: var(--text-primary);
 }
 
 .top-customers-section .coming-soon {
-  color: #7b8794;
-  font-size: 14px;
   margin: 0;
 }
 

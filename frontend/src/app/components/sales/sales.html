@@ -1,4 +1,6 @@
 <div class="sales-container">
+
+  <!-- Page Header -->
   <div class="page-header">
     <div>
       <h2>Sales Management</h2>
@@ -6,109 +8,181 @@
     </div>
   </div>
 
+  <!-- Product Selection -->
   <div class="sales-card">
-    <h3>Select Products</h3>
 
-    <div *ngIf="isLoading" class="loading-message">Loading inventory items...</div>
+    <div class="section-header">
+      <div>
+        <h3>Select Products</h3>
+        <p class="section-subtitle">
+          Choose products and quantities to add to your sale
+        </p>
+      </div>
+
+      <span class="item-count">{{ items.length }} Products</span>
+    </div>
+
+    <div *ngIf="isLoading" class="loading-message">
+      Loading inventory items...
+    </div>
 
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
 
-    <div *ngIf="!isLoading && !errorMessage && items.length === 0" class="empty-message">
+    <div
+      *ngIf="!isLoading && !errorMessage && items.length === 0"
+      class="empty-message"
+    >
       No inventory items available.
     </div>
 
-    <div *ngIf="!isLoading && items.length > 0" class="product-list">
+    <!-- Available Products -->
+    <div *ngIf="!isLoading && !errorMessage && items.length > 0" class="product-list">
+
       <div class="product-row" *ngFor="let item of items">
+
         <div class="product-details">
           <strong>{{ item.name }}</strong>
           <span>{{ item.sku }} | {{ item.brand }}</span>
         </div>
 
-        <div class="product-price">Rs. {{ item.price | number: '1.2-2' }}</div>
+        <div class="product-price">
+          Rs. {{ item.price | number: '1.2-2' }}
+        </div>
 
         <div class="product-stock">
-          <span>Stock: {{ item.quantity }}</span>
+          <span class="stock-label">Available Stock</span>
 
-          <div class="quantity-control">
-            <button
-              type="button"
-              (click)="decreaseQuantity(item.id)"
-              [disabled]="getQuantity(item.id) <= 1"
-            >
-              -
-            </button>
+          <span
+            class="stock-value"
+            [class.out-of-stock]="item.quantity <= 0"
+          >
+            {{ item.quantity }}
+          </span>
+        </div>
 
-            <span>{{ getQuantity(item.id) }}</span>
+        <div class="quantity-control">
+          <button
+            type="button"
+            (click)="decreaseQuantity(item.id)"
+            [disabled]="getQuantity(item.id) <= 1"
+          >
+            -
+          </button>
 
-            <button
-              type="button"
-              (click)="increaseQuantity(item)"
-              [disabled]="getQuantity(item.id) >= item.quantity"
-            >
-              +
-            </button>
-          </div>
+          <span>{{ getQuantity(item.id) }}</span>
+
+          <button
+            type="button"
+            (click)="increaseQuantity(item)"
+            [disabled]="getQuantity(item.id) >= item.quantity"
+          >
+            +
+          </button>
         </div>
 
         <div class="product-action">
-          <button type="button" (click)="addToCart(item)">Add to Cart</button>
+          <button
+            type="button"
+            (click)="addToCart(item)"
+            [disabled]="item.quantity <= 0"
+          >
+            Add to Cart
+          </button>
         </div>
+
       </div>
     </div>
-  </div>
-</div>
 
-<div class="sales-card cart-card">
-  <h3>Shopping Cart</h3>
-
-  <div *ngIf="saleSuccessMessage" class="success-message">
-    {{ saleSuccessMessage }}
   </div>
 
-  <div *ngIf="saleErrorMessage" class="error-message">
-    {{ saleErrorMessage }}
-  </div>
+  <!-- Shopping Cart -->
+  <div class="sales-card cart-card">
 
-  <div *ngIf="cartMessage" class="error-message">
-    {{ cartMessage }}
-  </div>
-
-  <div *ngIf="cartItems.length === 0" class="empty-message">Your cart is empty.</div>
-
-  <div *ngIf="cartItems.length > 0" class="cart-list">
-    <div class="cart-row" *ngFor="let cartItem of cartItems">
-      <div class="cart-product">
-        <strong>{{ cartItem.item.name }}</strong>
-        <span>{{ cartItem.item.sku }}</span>
+    <div class="section-header">
+      <div>
+        <h3>Shopping Cart</h3>
+        <p class="section-subtitle">
+          Review selected products before completing the sale
+        </p>
       </div>
 
-      <div>Quantity: {{ cartItem.quantity }}</div>
+      <span class="item-count">{{ cartItems.length }} Items</span>
+    </div>
 
-      <div>Rs. {{ cartItem.item.price * cartItem.quantity | number: '1.2-2' }}</div>
-      
-      <div>
-        <button type="button" class="remove-button" (click)="removeFromCart(cartItem.item.id)">
-          Remove
+    <!-- Sale Messages -->
+    <div *ngIf="saleSuccessMessage" class="success-message">
+      {{ saleSuccessMessage }}
+    </div>
+
+    <div *ngIf="saleErrorMessage" class="error-message">
+      {{ saleErrorMessage }}
+    </div>
+
+    <div *ngIf="cartMessage" class="error-message">
+      {{ cartMessage }}
+    </div>
+
+    <!-- Empty Cart -->
+    <div *ngIf="cartItems.length === 0" class="empty-message">
+      Your cart is empty. Add products to start a sale.
+    </div>
+
+    <!-- Cart Items -->
+    <div *ngIf="cartItems.length > 0" class="cart-list">
+
+      <div class="cart-row" *ngFor="let cartItem of cartItems">
+
+        <div class="cart-product">
+          <strong>{{ cartItem.item.name }}</strong>
+          <span>{{ cartItem.item.sku }}</span>
+        </div>
+
+        <div class="cart-quantity">
+          Quantity: {{ cartItem.quantity }}
+        </div>
+
+        <div class="cart-price">
+          Rs. {{ cartItem.item.price * cartItem.quantity | number: '1.2-2' }}
+        </div>
+
+        <div>
+          <button
+            type="button"
+            class="remove-button"
+            (click)="removeFromCart(cartItem.item.id)"
+          >
+            Remove
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Checkout -->
+    <div *ngIf="cartItems.length > 0" class="checkout-area">
+
+      <div class="cart-total">
+        <span>Total Amount</span>
+        <strong>
+          Rs. {{ getCartTotal() | number: '1.2-2' }}
+        </strong>
+      </div>
+
+      <div class="checkout-section">
+        <button
+          type="button"
+          class="checkout-button"
+          (click)="checkout()"
+          [disabled]="isProcessingSale"
+        >
+          {{ isProcessingSale ? 'Processing Sale...' : 'Complete Sale' }}
         </button>
       </div>
+
     </div>
+
   </div>
 
-  <div *ngIf="cartItems.length > 0" class="cart-total">
-    <strong>Total Amount:</strong>
-    <strong>Rs. {{ getCartTotal() | number: '1.2-2' }}</strong>
-  </div>
-
-  <div *ngIf="cartItems.length > 0" class="checkout-section">
-    <button
-      type="button"
-      class="checkout-button"
-      (click)="checkout()"
-      [disabled]="isProcessingSale"
-    >
-      {{ isProcessingSale ? 'Processing Sale...' : 'Complete Sale' }}
-    </button>
-  </div>
 </div>

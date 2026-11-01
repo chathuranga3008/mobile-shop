@@ -1,58 +1,71 @@
 <div class="stock-history-container">
-  <div class="history-header">
-    <h2>Stock Movement History</h2>
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h2>Stock Movement History</h2>
+      <p class="subtitle">Track inventory additions and stock changes</p>
+    </div>
 
-    <button class="refresh-button" (click)="loadStockMovements()">Refresh History</button>
+    <button type="button" class="refresh-button" (click)="loadStockMovements()">
+      Refresh History
+    </button>
   </div>
 
+  <!-- Loading Message -->
   <div *ngIf="loading" class="loading-message">Loading stock movement history...</div>
 
+  <!-- Error Message -->
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>
 
-  <div *ngIf="!loading && !errorMessage">
-    <div class="history-filters">
-      <div class="filter-group">
-        <label>Sort By Date</label>
-        <select [(ngModel)]="sortOrder">
-          <option value="newest">Newest First</option>
-          <option value="oldest">Oldest First</option>
-        </select>
-      </div>
+  <!-- History Content -->
+  <ng-container *ngIf="!loading && !errorMessage">
+    <!-- Filters -->
+    <div class="filter-card">
+      <div class="filter-toolbar">
+        <div class="filter-group">
+          <label>Sort By Date</label>
+          <select [(ngModel)]="sortOrder">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+          </select>
+        </div>
 
-      <div class="filter-group">
-        <label>From Date</label>
-        <input type="date" [(ngModel)]="startDate" />
-      </div>
+        <div class="filter-group">
+          <label>From Date</label>
+          <input type="date" [(ngModel)]="startDate" />
+        </div>
 
-      <div class="filter-group">
-        <label>To Date</label>
-        <input type="date" [(ngModel)]="endDate" />
-      </div>
+        <div class="filter-group">
+          <label>To Date</label>
+          <input type="date" [(ngModel)]="endDate" />
+        </div>
 
-      <div class="filter-group">
-        <label>Search SKU</label>
-        <input type="text" placeholder="Enter SKU..." [(ngModel)]="searchSku" />
-      </div>
+        <div class="filter-group">
+          <label>Search SKU</label>
+          <input type="text" placeholder="Enter SKU..." [(ngModel)]="searchSku" />
+        </div>
 
-      <div class="filter-group">
-        <label>Search Item Name</label>
-        <input type="text" placeholder="Enter item name..." [(ngModel)]="searchItemName" />
-      </div>
+        <div class="filter-group">
+          <label>Search Item Name</label>
+          <input type="text" placeholder="Enter item name..." [(ngModel)]="searchItemName" />
+        </div>
 
-      <div class="filter-group">
-        <label>Movement Type</label>
-        <select [(ngModel)]="selectedMovementType">
-          <option value="">All Movement Types</option>
-          <option *ngFor="let type of movementTypes" [value]="type">
-            {{ type }}
-          </option>
-        </select>
+        <div class="filter-group">
+          <label>Movement Type</label>
+          <select [(ngModel)]="selectedMovementType">
+            <option value="">All Movement Types</option>
+            <option *ngFor="let type of movementTypes" [value]="type">
+              {{ type }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <button
-        class="clear-filter-button"
+        type="button"
+        class="clear-btn"
         (click)="
           startDate = '';
           endDate = '';
@@ -65,16 +78,19 @@
       </button>
     </div>
 
+    <!-- Result Count -->
     <p class="result-count">
       Showing {{ filteredMovements.length }}
       {{ filteredMovements.length === 1 ? 'record' : 'records' }}
     </p>
 
-    <p *ngIf="filteredMovements.length === 0" class="empty-message">
+    <!-- Empty State -->
+    <div *ngIf="filteredMovements.length === 0" class="table-card empty-message">
       No stock movement records found.
-    </p>
+    </div>
 
-    <div class="table-container" *ngIf="filteredMovements.length > 0">
+    <!-- Stock Movement Table -->
+    <div class="table-card" *ngIf="filteredMovements.length > 0">
       <table>
         <thead>
           <tr>
@@ -82,7 +98,7 @@
             <th>SKU</th>
             <th>Item Name</th>
             <th>Previous Stock</th>
-            <th>Added</th>
+            <th>Changed</th>
             <th>New Stock</th>
             <th>Movement Type</th>
           </tr>
@@ -94,10 +110,32 @@
             <td>{{ movement.sku }}</td>
             <td>{{ movement.itemName }}</td>
             <td>{{ movement.previousQuantity }}</td>
-            <td class="quantity-added">+{{ movement.quantityChanged }}</td>
+
+            <td
+              class="quantity-changed"
+              [ngClass]="{
+                'quantity-added': movement.quantityChanged > 0,
+                'quantity-removed': movement.quantityChanged < 0,
+                'quantity-unchanged': movement.quantityChanged === 0,
+              }"
+            >
+              {{ movement.quantityChanged > 0 ? '+' : '' }}{{ movement.quantityChanged }}
+            </td>
+
             <td>{{ movement.newQuantity }}</td>
+
             <td>
-              <span class="movement-badge" [ngClass]="movement.movementType.toLowerCase()">
+              <span
+                class="movement-badge"
+                [ngClass]="{
+                  restock: movement.movementType.toLowerCase() === 'restock',
+                  sale: movement.movementType.toLowerCase() === 'sale',
+                  adjustment: movement.movementType.toLowerCase() === 'adjustment',
+                  default: !['restock', 'sale', 'adjustment'].includes(
+                    movement.movementType.toLowerCase()
+                  ),
+                }"
+              >
                 {{ movement.movementType }}
               </span>
             </td>
@@ -105,5 +143,5 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </ng-container>
 </div>

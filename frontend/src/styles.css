@@ -1,4 +1,46 @@
-/* Global reset */
+
+/* =================================
+   GLOBAL DESIGN SYSTEM
+================================= */
+
+:root {
+  /* Primary colors */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+
+  /* Text colors */
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+
+  /* Background colors */
+  --page-background: #f4f6f9;
+  --card-background: #ffffff;
+  --table-header-background: #f8fafc;
+
+  /* Status colors */
+  --success: #15803d;
+  --success-background: #dcfce7;
+  --danger: #dc2626;
+  --danger-background: #fee2e2;
+
+  /* Borders and shadows */
+  --border-color: #e2e8f0;
+  --card-radius: 12px;
+  --button-radius: 6px;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  /* Spacing */
+  --page-padding: 24px;
+  --card-padding: 24px;
+  --section-spacing: 24px;
+}
+
+/* =================================
+   GLOBAL RESET
+================================= */
+
 * {
   margin: 0;
   padding: 0;
@@ -6,10 +48,58 @@
   font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-/* Global page styling */
 html,
 body {
   min-height: 100%;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #f4f6f9;
+  background: var(--page-background);
+}
+
+/* =================================
+   SHARED PAGE HEADERS
+================================= */
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--section-spacing);
+}
+
+.page-header h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.page-header .subtitle {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* =================================
+   SHARED CARD APPEARANCE
+================================= */
+
+.filter-card,
+.table-card,
+.details-card,
+.sales-card {
+  background: var(--card-background);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  margin-bottom: var(--section-spacing);
+  box-shadow: var(--card-shadow);
+}
+
+/* =================================
+   RESPONSIVE DESIGN VARIABLES
+================================= */
+
+@media (max-width: 768px) {
+  :root {
+    --page-padding: 14px;
+    --card-padding: 16px;
+  }
 }

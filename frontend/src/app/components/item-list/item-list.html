@@ -1,14 +1,32 @@
-<div class="container">
-  <div class="inventory-header">
-    <h2>Inventory Management</h2>
+<div class="inventory-container">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h2>Inventory Management</h2>
+      <p class="subtitle">Manage your mobile shop inventory</p>
+    </div>
 
     <div class="header-actions">
-      <button class="refresh-button" (click)="loadItems()">Refresh Items</button>
+      <button
+        type="button"
+        class="refresh-button"
+        (click)="loadItems()"
+      >
+        Refresh Items
+      </button>
 
-      <button class="add-item-button" (click)="onAddNewItem()">+ Add New Item</button>
+      <button
+        type="button"
+        class="add-item-button"
+        (click)="onAddNewItem()"
+      >
+        + Add New Item
+      </button>
     </div>
   </div>
 
+  <!-- Item Form -->
   <app-item-form
     *ngIf="showForm"
     [selectedItem]="selectedItem"
@@ -17,90 +35,147 @@
   >
   </app-item-form>
 
-  <div class="filter-buttons">
-    <button [class.active]="!showLowStockOnly" (click)="showLowStockOnly = false; loadItems()">
-      All Items
-    </button>
+  <!-- Inventory Filters -->
+  <div class="filter-card">
 
-    <button
-      [class.active]="showLowStockOnly"
-      (click)="showLowStockOnly = true; loadLowStockItems()"
-    >
-      Low Stock Only
-    </button>
-  </div>
+    <div class="filter-buttons">
+      <button
+        type="button"
+        [class.active]="!showLowStockOnly"
+        (click)="showLowStockOnly = false; loadItems()"
+      >
+        All Items
+      </button>
 
-  <div class="filter-toolbar">
-    <div class="search-container">
-      <input type="text" placeholder="Search by SKU or item name..." [(ngModel)]="searchTerm" />
+      <button
+        type="button"
+        [class.active]="showLowStockOnly"
+        (click)="showLowStockOnly = true; loadLowStockItems()"
+      >
+        Low Stock Only
+      </button>
     </div>
 
-    <select [(ngModel)]="selectedBrand" (ngModelChange)="selectedCategory = ''">
-      <option value="">All Brands</option>
-      <option *ngFor="let brand of brands" [value]="brand">
-        {{ brand }}
-      </option>
-    </select>
+    <div class="filter-toolbar">
 
-    <select [(ngModel)]="selectedCategory">
-      <option value="">All Categories</option>
-      <option *ngFor="let category of categories" [value]="category">
-        {{ category }}
-      </option>
-    </select>
+      <div class="filter-group search-group">
+        <label>Search Items</label>
+        <input
+          type="text"
+          placeholder="Search by SKU or item name..."
+          [(ngModel)]="searchTerm"
+        />
+      </div>
+
+      <div class="filter-group">
+        <label>Brand</label>
+        <select
+          [(ngModel)]="selectedBrand"
+          (ngModelChange)="selectedCategory = ''"
+        >
+          <option value="">All Brands</option>
+          <option *ngFor="let brand of brands" [value]="brand">
+            {{ brand }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Category</label>
+        <select [(ngModel)]="selectedCategory">
+          <option value="">All Categories</option>
+          <option *ngFor="let category of categories" [value]="category">
+            {{ category }}
+          </option>
+        </select>
+      </div>
+
+    </div>
+
+    <!-- Result Count -->
+    <p class="result-count">
+      <ng-container *ngIf="filteredItems.length > 0">
+        Showing {{ filteredItems.length }}
+        {{ filteredItems.length === 1 ? 'item' : 'items' }}
+      </ng-container>
+
+      <ng-container *ngIf="filteredItems.length === 0">
+        No matching items found.
+      </ng-container>
+    </p>
+
   </div>
 
-  <p class="result-count">
-    <ng-container *ngIf="filteredItems.length > 0">
-      Showing {{ filteredItems.length }}
-      {{ filteredItems.length === 1 ? 'item' : 'items' }}
-    </ng-container>
-
-    <ng-container *ngIf="filteredItems.length === 0"> No matching items found. </ng-container>
-  </p>
-
-  <div *ngIf="loading">Loading items...</div>
-
-  <div *ngIf="errorMessage" class="error">
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>
 
-  <table *ngIf="!loading && !errorMessage">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>SKU</th>
-        <th>Name</th>
-        <th>Brand</th>
-        <th>Category</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Low Stock Threshold</th>
-        <th>Action</th>
-      </tr>
-    </thead>
+  <!-- Loading Message -->
+  <div *ngIf="loading" class="loading-message">
+    Loading items...
+  </div>
 
-    <tbody>
-      <tr *ngFor="let item of filteredItems">
-        <td>{{ item.id }}</td>
-        <td>{{ item.sku }}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.brand }}</td>
-        <td>{{ item.category }}</td>
-        <td>{{ item.price | number: '1.2-2' }}</td>
-        <td [class.low-stock]="item.quantity <= item.lowStockThreshold">
-          {{ item.quantity }}
-        </td>
-        <td>{{ item.lowStockThreshold }}</td>
-        <td>
-          <button (click)="onEditItem(item)">Edit</button>
-          <button class="delete-button" (click)="deleteItem(item.id)">Delete</button>
-        </td>
-      </tr>
+  <!-- Inventory Table -->
+  <div class="table-card" *ngIf="!loading && !errorMessage">
 
-      <tr *ngIf="items.length === 0">
-        <td colspan="8">No items found.</td>
-      </tr>
-    </tbody>
-  </table>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>SKU</th>
+          <th>Name</th>
+          <th>Brand</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Low Stock Threshold</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of filteredItems">
+          <td>{{ item.id }}</td>
+          <td>{{ item.sku }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.brand }}</td>
+          <td>{{ item.category }}</td>
+          <td>{{ item.price | number: '1.2-2' }}</td>
+
+          <td [class.low-stock]="item.quantity <= item.lowStockThreshold">
+            {{ item.quantity }}
+          </td>
+
+          <td>{{ item.lowStockThreshold }}</td>
+
+          <td>
+            <button
+              type="button"
+              class="edit-btn"
+              (click)="onEditItem(item)"
+            >
+              Edit
+            </button>
+
+            <button
+              type="button"
+              class="delete-button"
+              (click)="deleteItem(item.id)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="filteredItems.length === 0">
+          <td colspan="9" class="empty-message">
+            No items found.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
 </div>

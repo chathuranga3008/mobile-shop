@@ -1,3 +1,4 @@
+
 /* Main application layout */
 .app-container {
   display: flex;
@@ -57,8 +58,8 @@
   align-items: center;
   height: 75px;
   padding: 0 30px;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: var(--card-background);
+  box-shadow: var(--card-shadow);
 }
 
 .sidebar,
@@ -69,7 +70,7 @@
 }
 
 .topbar h2 {
-  color: #263445;
+  color: var(--text-primary);
   font-size: 20px;
   font-weight: 600;
 }

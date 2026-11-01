@@ -1,11 +1,21 @@
 <div class="form-container">
+
+  <!-- Form Header -->
   <div class="form-heading">
     <h2>{{ isEditMode ? 'Edit Item' : 'Add New Item' }}</h2>
 
-    <button type="button" class="close-form-button" (click)="closeForm.emit()">✕ Close</button>
+    <button
+      type="button"
+      class="close-form-button"
+      (click)="closeForm.emit()"
+    >
+      ✕ Close
+    </button>
   </div>
 
+  <!-- Item Form -->
   <form (ngSubmit)="saveItem()" #itemForm="ngForm">
+
     <div class="form-group">
       <label>SKU</label>
       <input
@@ -30,7 +40,13 @@
 
     <div class="form-group">
       <label>Brand</label>
-      <input type="text" name="brand" [(ngModel)]="item.brand" required placeholder="Enter brand" />
+      <input
+        type="text"
+        name="brand"
+        [(ngModel)]="item.brand"
+        required
+        placeholder="Enter brand"
+      />
     </div>
 
     <div class="form-group">
@@ -46,12 +62,24 @@
 
     <div class="form-group">
       <label>Price</label>
-      <input type="number" name="price" [(ngModel)]="item.price" required min="0.01" />
+      <input
+        type="number"
+        name="price"
+        [(ngModel)]="item.price"
+        required
+        min="0.01"
+      />
     </div>
 
     <div class="form-group">
       <label>Quantity</label>
-      <input type="number" name="quantity" [(ngModel)]="item.quantity" required min="0" />
+      <input
+        type="number"
+        name="quantity"
+        [(ngModel)]="item.quantity"
+        required
+        min="0"
+      />
     </div>
 
     <div class="form-group">
@@ -68,13 +96,17 @@
     <button type="submit" [disabled]="itemForm.invalid">
       {{ isEditMode ? 'Update Item' : 'Save Item' }}
     </button>
+
   </form>
 
+  <!-- Success Message -->
   <p class="success" *ngIf="successMessage">
     {{ successMessage }}
   </p>
 
+  <!-- Error Message -->
   <p class="error" *ngIf="errorMessage">
     {{ errorMessage }}
   </p>
+
 </div>

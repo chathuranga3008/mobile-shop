@@ -4,14 +4,14 @@
   max-width: 850px;
   margin: 25px auto;
   padding: 28px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+  background: var(--card-background);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
 }
 
 .form-container h2 {
   margin-bottom: 25px;
-  color: #1e293b;
+  color: var(--text-primary);
   font-size: 21px;
   font-weight: 600;
 }
@@ -31,10 +31,10 @@
 /* Close form button */
 .close-form-button {
   padding: 8px 13px;
-  background: #fee2e2;
-  color: #dc2626;
+  background: var(--danger-background);
+  color: var(--danger);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--button-radius);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -59,7 +59,7 @@
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  color: #475569;
+  color: var(--text-secondary);
   font-size: 14px;
   font-weight: 600;
 }
@@ -69,16 +69,16 @@
   width: 100%;
   height: 42px;
   padding: 10px 12px;
-  border: 1px solid #dbe3ef;
+  border: 1px solid var(--border-color);
   border-radius: 7px;
-  color: #334155;
+  color: var(--text-secondary);
   font-size: 14px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .form-group input:focus {
-  border-color: #2563eb;
+  border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
@@ -88,10 +88,10 @@
   width: 100%;
   margin-top: 5px;
   padding: 12px;
-  background: #2563eb;
+  background: var(--primary);
   color: white;
   border: none;
-  border-radius: 7px;
+  border-radius: var(--button-radius);
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
@@ -99,7 +99,7 @@
 }
 
 .form-container form button:hover:not(:disabled) {
-  background: #1d4ed8;
+  background: var(--primary-hover);
 }
 
 .form-container form button:disabled {
@@ -117,13 +117,13 @@
 }
 
 .success {
-  background: #f0fdf4;
-  color: #15803d;
+  background: var(--success-background);
+  color: var(--success);
 }
 
 .error {
-  background: #fef2f2;
-  color: #dc2626;
+  background: var(--danger-background);
+  color: var(--danger);
 }
 
 /* Mobile responsive layout */

@@ -1,34 +1,22 @@
+/* =================================
+   STOCK HISTORY PAGE
+================================= */
 
-/* Stock history page layout */
 .stock-history-container {
-  padding: 10px;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  color: #263445;
+  padding: var(--page-padding);
+  color: var(--text-primary);
 }
 
-/* Page header */
-.history-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 24px;
-}
+/* =================================
+   REFRESH BUTTON
+================================= */
 
-.history-header h2 {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 600;
-  color: #1e293b;
-}
-
-/* Refresh button */
 .refresh-button {
   padding: 11px 18px;
   background: #e2e8f0;
   color: #334155;
   border: none;
-  border-radius: 7px;
+  border-radius: var(--button-radius);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -39,17 +27,16 @@
   background: #cbd5e1;
 }
 
-/* History filters */
-.history-filters {
+/* =================================
+   FILTERS
+================================= */
+
+.filter-toolbar {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px 20px;
   align-items: end;
-  margin: 20px 0 25px;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  margin-bottom: 20px;
 }
 
 .filter-group {
@@ -62,7 +49,7 @@
 .filter-group label {
   font-size: 13px;
   font-weight: 600;
-  color: #475569;
+  color: var(--text-secondary);
 }
 
 .filter-group input,
@@ -71,52 +58,55 @@
   width: 100%;
   height: 42px;
   padding: 10px 12px;
-  border: 1px solid #dbe3ef;
+  border: 1px solid var(--border-color);
   border-radius: 7px;
-  background: white;
-  color: #334155;
+  background: var(--card-background);
+  color: var(--text-secondary);
   font-size: 14px;
   outline: none;
 }
 
 .filter-group input:focus,
 .filter-group select:focus {
-  border-color: #2563eb;
+  border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-/* Clear filters button */
-.clear-filter-button {
+/* Clear Filters Button */
+.clear-btn {
   height: 42px;
   padding: 10px 18px;
   border: none;
-  border-radius: 7px;
-  background: #fee2e2;
-  color: #dc2626;
+  border-radius: var(--button-radius);
+  background: var(--danger-background);
+  color: var(--danger);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
 }
 
-.clear-filter-button:hover {
+.clear-btn:hover {
   background: #fecaca;
 }
 
-/* Result count */
+/* =================================
+   RESULT COUNT
+================================= */
+
 .result-count {
   margin: 18px 0;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 14px;
   font-weight: 500;
 }
 
-/* History table */
-.table-container {
+/* =================================
+   TABLE
+================================= */
+
+.table-card {
   width: 100%;
   overflow-x: auto;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
 table {
@@ -124,36 +114,53 @@ table {
   border-collapse: collapse;
 }
 
+thead {
+  background: var(--table-header-background);
+}
+
 th {
   padding: 15px 12px;
-  background: #f1f5f9;
-  color: #475569;
+  color: var(--text-secondary);
   font-size: 13px;
   font-weight: 600;
   text-align: left;
   white-space: nowrap;
+  border-bottom: 1px solid var(--border-color);
 }
 
 td {
   padding: 14px 12px;
-  border-bottom: 1px solid #edf0f5;
-  color: #334155;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
   font-size: 13px;
   white-space: nowrap;
 }
 
 tbody tr:hover {
-  background: #f8fafc;
+  background: var(--table-header-background);
 }
 
 tbody tr:last-child td {
   border-bottom: none;
 }
 
-/* Stock movement indicators */
+/* =================================
+   STOCK MOVEMENT INDICATORS
+================================= */
+
 .quantity-added {
-  color: #15803d;
+  color: var(--success);
   font-weight: 700;
+}
+
+.quantity-removed {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+.quantity-unchanged {
+  color: var(--text-muted);
+  font-weight: 600;
 }
 
 .movement-badge {
@@ -166,18 +173,36 @@ tbody tr:last-child td {
 }
 
 .movement-badge.restock {
-  background: #dcfce7;
-  color: #15803d;
+  background: var(--success-background);
+  color: var(--success);
 }
 
-/* Loading, empty and error messages */
+.movement-badge.sale {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.movement-badge.adjustment {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.movement-badge.default {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+/* =================================
+   LOADING, EMPTY AND ERROR MESSAGES
+================================= */
+
 .loading-message,
 .empty-message {
   margin: 20px 0;
   padding: 18px;
-  background: white;
+  background: var(--card-background);
   border-radius: 8px;
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .error-message {
@@ -185,30 +210,30 @@ tbody tr:last-child td {
   padding: 12px;
   background: #fef2f2;
   border-radius: 7px;
-  color: #dc2626;
+  color: var(--danger);
 }
 
-/* Tablet responsive layout */
+/* =================================
+   RESPONSIVE DESIGN
+================================= */
+
 @media (max-width: 900px) {
-  .history-filters {
+  .filter-toolbar {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/* Mobile responsive layout */
-@media (max-width: 650px) {
-  .history-header {
+@media (max-width: 600px) {
+  .page-header {
     align-items: flex-start;
     flex-direction: column;
   }
 
-  .refresh-button {
+  .page-header .refresh-button {
     width: 100%;
   }
-}
 
-@media (max-width: 600px) {
-  .history-filters {
+  .filter-toolbar {
     grid-template-columns: 1fr;
   }
 }
