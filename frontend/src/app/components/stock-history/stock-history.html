@@ -6,7 +6,7 @@
       <p class="subtitle">Track inventory additions and stock changes</p>
     </div>
 
-    <button type="button" class="refresh-button" (click)="loadStockMovements()">
+    <button (click)="loadStockMovements()" class="refresh-button" type="button">
       Refresh History
     </button>
   </div>
@@ -34,22 +34,22 @@
 
         <div class="filter-group">
           <label>From Date</label>
-          <input type="date" [(ngModel)]="startDate" />
+          <input [(ngModel)]="startDate" type="date"/>
         </div>
 
         <div class="filter-group">
           <label>To Date</label>
-          <input type="date" [(ngModel)]="endDate" />
+          <input [(ngModel)]="endDate" type="date"/>
         </div>
 
         <div class="filter-group">
           <label>Search SKU</label>
-          <input type="text" placeholder="Enter SKU..." [(ngModel)]="searchSku" />
+          <input [(ngModel)]="searchSku" placeholder="Enter SKU..." type="text"/>
         </div>
 
         <div class="filter-group">
           <label>Search Item Name</label>
-          <input type="text" placeholder="Enter item name..." [(ngModel)]="searchItemName" />
+          <input [(ngModel)]="searchItemName" placeholder="Enter item name..." type="text"/>
         </div>
 
         <div class="filter-group">
@@ -64,8 +64,6 @@
       </div>
 
       <button
-        type="button"
-        class="clear-btn"
         (click)="
           startDate = '';
           endDate = '';
@@ -73,6 +71,8 @@
           searchItemName = '';
           selectedMovementType = ''
         "
+        class="clear-btn"
+        type="button"
       >
         Clear Filters
       </button>
@@ -90,7 +90,7 @@
     </div>
 
     <!-- Stock Movement Table -->
-    <div class="table-card" *ngIf="filteredMovements.length > 0">
+    <div *ngIf="filteredMovements.length > 0" class="table-card">
       <table>
         <thead>
           <tr>
@@ -112,12 +112,12 @@
             <td>{{ movement.previousQuantity }}</td>
 
             <td
-              class="quantity-changed"
               [ngClass]="{
                 'quantity-added': movement.quantityChanged > 0,
                 'quantity-removed': movement.quantityChanged < 0,
                 'quantity-unchanged': movement.quantityChanged === 0,
               }"
+              class="quantity-changed"
             >
               {{ movement.quantityChanged > 0 ? '+' : '' }}{{ movement.quantityChanged }}
             </td>
@@ -126,7 +126,6 @@
 
             <td>
               <span
-                class="movement-badge"
                 [ngClass]="{
                   restock: movement.movementType.toLowerCase() === 'restock',
                   sale: movement.movementType.toLowerCase() === 'sale',
@@ -135,6 +134,7 @@
                     movement.movementType.toLowerCase()
                   ),
                 }"
+                class="movement-badge"
               >
                 {{ movement.movementType }}
               </span>

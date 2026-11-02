@@ -1,5 +1,7 @@
-CREATE DATABASE  IF NOT EXISTS `mobile_shop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `mobile_shop`;
+CREATE
+DATABASE  IF NOT EXISTS `mobile_shop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE
+`mobile_shop`;
 -- MySQL dump 10.13  Distrib 8.0.46, for Win64 (x86_64)
 --
 -- Host: localhost    Database: mobile_shop
@@ -24,18 +26,20 @@ USE `mobile_shop`;
 DROP TABLE IF EXISTS `stock_movements`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `stock_movements` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `item_id` bigint NOT NULL,
-  `previous_quantity` int NOT NULL,
-  `quantity_changed` int NOT NULL,
-  `new_quantity` int NOT NULL,
-  `movement_type` varchar(20) NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `fk_stock_movements_item` (`item_id`),
-  CONSTRAINT `fk_stock_movements_item` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE RESTRICT,
-  CONSTRAINT `chk_stock_movement_quantities` CHECK (((`previous_quantity` >= 0) and (`quantity_changed` > 0) and (`new_quantity` >= 0)))
+CREATE TABLE `stock_movements`
+(
+    `id`                bigint      NOT NULL AUTO_INCREMENT,
+    `item_id`           bigint      NOT NULL,
+    `previous_quantity` int         NOT NULL,
+    `quantity_changed`  int         NOT NULL,
+    `new_quantity`      int         NOT NULL,
+    `movement_type`     varchar(20) NOT NULL,
+    `created_at`        timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    KEY                 `fk_stock_movements_item` (`item_id`),
+    CONSTRAINT `fk_stock_movements_item` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE RESTRICT,
+    CONSTRAINT `chk_stock_movement_quantities` CHECK (((`previous_quantity` >= 0) and (`quantity_changed` > 0) and
+                                                       (`new_quantity` >= 0)))
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -43,11 +47,14 @@ CREATE TABLE `stock_movements` (
 -- Dumping data for table `stock_movements`
 --
 
-LOCK TABLES `stock_movements` WRITE;
+LOCK
+TABLES `stock_movements` WRITE;
 /*!40000 ALTER TABLE `stock_movements` DISABLE KEYS */;
-INSERT INTO `stock_movements` VALUES (1,4,13,5,18,'RESTOCK','2026-10-31 17:13:54');
+INSERT INTO `stock_movements`
+VALUES (1, 4, 13, 5, 18, 'RESTOCK', '2026-10-31 17:13:54');
 /*!40000 ALTER TABLE `stock_movements` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

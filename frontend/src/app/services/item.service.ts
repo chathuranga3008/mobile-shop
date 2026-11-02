@@ -9,10 +9,9 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ItemService {
-
   private apiUrl = `${environment.apiUrl}/items`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // Get all items
   getAllItems(): Observable<Item[]> {

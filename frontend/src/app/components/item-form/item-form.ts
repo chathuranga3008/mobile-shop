@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -13,11 +13,10 @@ import { Item } from '../../models/item.model';
   styleUrl: './item-form.css'
 })
 export class ItemForm implements OnChanges {
-
   @Input() selectedItem: Item | null = null;
   @Output() itemAdded = new EventEmitter<void>();
   @Output() closeForm = new EventEmitter<void>();
-  
+
   item = {
     sku: '',
     name: '',
@@ -27,7 +26,7 @@ export class ItemForm implements OnChanges {
     quantity: 0,
     lowStockThreshold: 5
   };
-  
+
   isEditMode = false;
   successMessage = '';
   errorMessage = '';
@@ -39,12 +38,8 @@ export class ItemForm implements OnChanges {
     this.errorMessage = '';
 
     if (this.isEditMode && this.selectedItem) {
-
       // Update existing item
-      this.itemService.updateItem(
-        this.selectedItem.id,
-        this.item
-      ).subscribe({
+      this.itemService.updateItem(this.selectedItem.id, this.item).subscribe({
         next: (response) => {
           this.successMessage = 'Item updated successfully!';
 
@@ -53,13 +48,10 @@ export class ItemForm implements OnChanges {
         },
         error: (error) => {
           console.error('Error updating item:', error);
-          this.errorMessage =
-            error.error?.message || 'Failed to update item.';
+          this.errorMessage = error.error?.message || 'Failed to update item.';
         }
       });
-
     } else {
-
       // Create new item
       this.itemService.createItem(this.item).subscribe({
         next: (response) => {
@@ -70,11 +62,9 @@ export class ItemForm implements OnChanges {
         },
         error: (error) => {
           console.error('Error creating item:', error);
-          this.errorMessage =
-            error.error?.message || 'Failed to add item.';
+          this.errorMessage = error.error?.message || 'Failed to add item.';
         }
       });
-
     }
   }
 
@@ -93,7 +83,6 @@ export class ItemForm implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
     if (changes['selectedItem'] && this.selectedItem) {
       this.isEditMode = true;
 

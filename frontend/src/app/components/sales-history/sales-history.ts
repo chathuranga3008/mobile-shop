@@ -1,19 +1,18 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { SaleService } from '../../services/sale.service';
-import { SaleHistory, SaleDetail } from '../../models/sale.model';
+import { SaleDetail, SaleHistory } from '../../models/sale.model';
 
 @Component({
   selector: 'app-sales-history',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './sales-history.html',
-  styleUrl: './sales-history.css'
+  styleUrl: './sales-history.css',
 })
 export class SalesHistory implements OnInit {
-
   sales: SaleHistory[] = [];
   filteredSales: SaleHistory[] = [];
 
@@ -26,7 +25,10 @@ export class SalesHistory implements OnInit {
   startDate = '';
   endDate = '';
 
-  constructor(private saleService: SaleService, private cdr: ChangeDetectorRef) { }
+  constructor(
+    private saleService: SaleService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.loadSalesHistory();
@@ -34,7 +36,6 @@ export class SalesHistory implements OnInit {
 
   // Load sales history
   loadSalesHistory(): void {
-
     this.loading = true;
     this.errorMessage = '';
 
@@ -56,11 +57,9 @@ export class SalesHistory implements OnInit {
 
   // Filter sales history
   filterSales(): void {
-
     const search = this.searchTerm.toLowerCase().trim();
 
-    this.filteredSales = this.sales.filter(sale => {
-
+    this.filteredSales = this.sales.filter((sale) => {
       const matchesSearch =
         sale.saleNumber.toLowerCase().includes(search);
 
@@ -72,33 +71,30 @@ export class SalesHistory implements OnInit {
       const matchesEndDate =
         !this.endDate || saleDate <= this.endDate;
 
-      return matchesSearch &&
-        matchesStartDate &&
-        matchesEndDate;
+      return matchesSearch && matchesStartDate && matchesEndDate;
     });
   }
 
   // View sale details
-viewSaleDetails(saleId: number): void {
+  viewSaleDetails(saleId: number): void {
+    this.selectedSale = [];
+    this.errorMessage = '';
 
-  this.selectedSale = [];
-  this.errorMessage = '';
+    this.saleService.getSaleDetails(saleId).subscribe({
+      next: (data) => {
+        this.selectedSale = data;
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Failed to load sale details:', error);
+        this.errorMessage = 'Failed to load sale details.';
+        this.cdr.detectChanges();
+      },
+    });
+  }
 
-  this.saleService.getSaleDetails(saleId).subscribe({
-    next: (data) => {
-      this.selectedSale = data;
-      this.cdr.detectChanges();
-    },
-    error: (error) => {
-      console.error('Failed to load sale details:', error);
-      this.errorMessage = 'Failed to load sale details.';
-      this.cdr.detectChanges();
-    }
-  });
-}
-
-// Close sale details
-closeSaleDetails(): void {
-  this.selectedSale = [];
-}
+  // Close sale details
+  closeSaleDetails(): void {
+    this.selectedSale = [];
+  }
 }

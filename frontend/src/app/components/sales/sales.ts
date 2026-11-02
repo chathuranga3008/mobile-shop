@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Item } from '../../models/item.model';
@@ -14,7 +14,6 @@ import { SaleService } from '../../services/sale.service';
   styleUrl: './sales.css'
 })
 export class Sales implements OnInit {
-
   items: Item[] = [];
   isLoading = false;
   errorMessage = '';
@@ -29,7 +28,7 @@ export class Sales implements OnInit {
     private itemService: ItemService,
     private saleService: SaleService,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loadItems();
@@ -37,7 +36,6 @@ export class Sales implements OnInit {
 
   // Load available inventory items
   loadItems(): void {
-
     this.isLoading = true;
     this.errorMessage = '';
 
@@ -109,8 +107,7 @@ export class Sales implements OnInit {
   getCartTotal(): number {
     return this.cartItems.reduce(
       (total, cartItem) =>
-        total + (cartItem.item.price * cartItem.quantity),
-      0
+        total + (cartItem.item.price * cartItem.quantity), 0
     );
   }
 
@@ -126,7 +123,7 @@ export class Sales implements OnInit {
     }
 
     const saleRequest: SaleRequest = {
-      items: this.cartItems.map(cartItem => ({
+      items: this.cartItems.map((cartItem) => ({
         itemId: cartItem.item.id,
         quantity: cartItem.quantity
       }))

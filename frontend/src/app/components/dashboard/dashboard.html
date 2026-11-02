@@ -1,28 +1,25 @@
-
 <div class="dashboard-container">
-
   <!-- Page Header -->
   <div class="page-header">
     <div>
       <h2>Mobile Shop Dashboard</h2>
       <p class="subtitle">Business Overview</p>
     </div>
+
+    <!-- Refresh Dashboard -->
+    <button (click)="loadDashboard()" [disabled]="loading" type="button">Refresh Dashboard</button>
   </div>
 
   <!-- Loading and Error Messages -->
-  <div *ngIf="loading" class="loading">
-    Loading dashboard...
-  </div>
+  <div *ngIf="loading" class="loading">Loading dashboard...</div>
 
   <div *ngIf="errorMessage" class="error">
     {{ errorMessage }}
   </div>
 
   <ng-container *ngIf="!loading && !errorMessage">
-
     <!-- Inventory Summary Cards -->
-    <div class="dashboard-grid">
-
+    <div class="dashboard-grid inventory-summary-grid">
       <div class="dashboard-card blue">
         <div class="card-icon">📦</div>
         <h3>Total Products</h3>
@@ -54,76 +51,211 @@
           {{ inventoryValue | number: '1.2-2' }}
         </p>
       </div>
-
     </div>
 
-    <!-- Sales Analytics -->
-    <section class="sales-analytics-section">
+    <!-- Sales Panels Layout -->
+    <div class="sales-performance-group">
+      <!-- Sales Analytics -->
+      <section class="sales-analytics-section">
+        <div class="section-header">
+          <div>
+            <h2>Sales Analytics</h2>
+            <p class="subtitle">Sales performance for the selected period</p>
+          </div>
+        </div>
 
+        <!-- Date Range Filter -->
+<div class="date-range-filter">
+
+  <!-- Quick Date Range Options -->
+  <div class="quick-date-ranges">
+    <button
+      type="button"
+      [class.active]="selectedDateRange === '7'"
+      (click)="applyQuickDateRange(7)"
+    >
+      7 Days
+    </button>
+
+    <button
+      type="button"
+      [class.active]="selectedDateRange === '30'"
+      (click)="applyQuickDateRange(30)"
+    >
+      1 Month
+    </button>
+
+    <button
+      type="button"
+      [class.active]="selectedDateRange === '90'"
+      (click)="applyQuickDateRange(90)"
+    >
+      3 Months
+    </button>
+
+    <button
+      type="button"
+      [class.active]="selectedDateRange === '365'"
+      (click)="applyQuickDateRange(365)"
+    >
+      1 Year
+    </button>
+
+    <button
+      type="button"
+      [class.active]="selectedDateRange === 'custom'"
+      (click)="selectedDateRange = 'custom'"
+    >
+      Custom
+    </button>
+  </div>
+
+  <!-- Custom Date Filter -->
+  <div *ngIf="selectedDateRange === 'custom'" class="date-filter">
+
+    <div class="date-filter-field">
+      <label for="startDate">Start Date</label>
+      <input
+        [(ngModel)]="startDate"
+        id="startDate"
+        type="date"
+      />
+    </div>
+
+    <div class="date-filter-field">
+      <label for="endDate">End Date</label>
+      <input
+        [(ngModel)]="endDate"
+        id="endDate"
+        type="date"
+      />
+    </div>
+
+    <button (click)="applyDateFilter()" type="button">
+      Apply Filter
+    </button>
+
+  </div>
+</div>
+
+        <!-- Sales Summary Cards -->
+        <div class="dashboard-grid sales-summary-grid">
+          <div class="dashboard-card blue">
+            <div class="card-icon">🧾</div>
+            <h3>Total Sales</h3>
+            <p class="card-value">{{ totalSales }}</p>
+          </div>
+
+          <div class="dashboard-card green">
+            <div class="card-icon">💵</div>
+            <h3>Total Revenue</h3>
+            <p class="card-value">
+              {{ totalRevenue | number: '1.2-2' }}
+            </p>
+          </div>
+
+          <div class="dashboard-card purple">
+            <div class="card-icon">📱</div>
+            <h3>Units Sold</h3>
+            <p class="card-value">{{ totalUnitsSold }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Top-Selling Products -->
+      <section class="top-selling-section">
+        <div class="section-header">
+          <div>
+            <h2>Top-Selling Products</h2>
+            <p class="subtitle">Best-performing products for the selected period</p>
+          </div>
+        </div>
+
+        <div *ngIf="topSellingProductsError" class="error">
+          {{ topSellingProductsError }}
+        </div>
+
+        <div *ngIf="!topSellingProductsError && topSellingProducts.length === 0">
+          <p>No sales data available for the selected period.</p>
+        </div>
+
+        <div *ngIf="topSellingProducts.length > 0" class="top-selling-table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>SKU</th>
+                <th>Quantity Sold</th>
+                <th>Sales Revenue</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let product of topSellingProducts">
+                <td>{{ product.itemName }}</td>
+
+                <td>{{ product.sku }}</td>
+
+                <td>{{ product.totalQuantitySold }}</td>
+
+                <td class="sale-amount">
+                  {{ product.totalRevenue | number: '1.2-2' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- Recent Sales -->
+    <section class="recent-sales-section">
       <div class="section-header">
         <div>
-          <h2>Sales Analytics</h2>
-          <p class="subtitle">
-            Sales performance for the selected period
-          </p>
+          <h2>Recent Sales</h2>
+          <p class="subtitle">Your latest five transactions</p>
         </div>
       </div>
 
-      <!-- Date Range Filter -->
-      <div class="date-filter">
-
-        <div class="date-filter-field">
-          <label for="startDate">Start Date</label>
-          <input
-            id="startDate"
-            type="date"
-            [(ngModel)]="startDate"
-          />
-        </div>
-
-        <div class="date-filter-field">
-          <label for="endDate">End Date</label>
-          <input
-            id="endDate"
-            type="date"
-            [(ngModel)]="endDate"
-          />
-        </div>
-
-        <button
-          type="button"
-          (click)="applyDateFilter()"
-        >
-          Apply Filter
-        </button>
-
+      <div *ngIf="recentSalesError" class="error">
+        {{ recentSalesError }}
       </div>
 
-      <!-- Sales Summary Cards -->
-      <div class="dashboard-grid sales-summary-grid">
-
-        <div class="dashboard-card blue">
-          <div class="card-icon">🧾</div>
-          <h3>Total Sales</h3>
-          <p class="card-value">{{ totalSales }}</p>
-        </div>
-
-        <div class="dashboard-card green">
-          <div class="card-icon">💵</div>
-          <h3>Total Revenue</h3>
-          <p class="card-value">
-            {{ totalRevenue | number: '1.2-2' }}
-          </p>
-        </div>
-
-        <div class="dashboard-card purple">
-          <div class="card-icon">📱</div>
-          <h3>Units Sold</h3>
-          <p class="card-value">{{ totalUnitsSold }}</p>
-        </div>
-
+      <div *ngIf="!recentSalesError && recentSales.length === 0">
+        <p>No sales transactions available.</p>
       </div>
 
+      <div *ngIf="recentSales.length > 0" class="recent-sales-table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Sale Number</th>
+              <th>Sale Date</th>
+              <th>Products</th>
+              <th>Total Quantity</th>
+              <th>Total Amount</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let sale of recentSales">
+              <td>{{ sale.saleNumber }}</td>
+
+              <td>
+                {{ sale.saleDate | date: 'medium' }}
+              </td>
+
+              <td>{{ sale.productCount }}</td>
+
+              <td>{{ sale.totalQuantity }}</td>
+
+              <td class="sale-amount">
+                {{ sale.totalAmount | number: '1.2-2' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <!-- Stock Distribution -->
@@ -131,9 +263,7 @@
       <h2>Stock Distribution</h2>
 
       <div class="stock-chart-container">
-
         <div
-          class="stock-doughnut"
           [style.background]="
             'conic-gradient(' +
             '#22c55e 0 ' +
@@ -148,6 +278,7 @@
             (totalItems > 0 ? ((healthyStockItems + lowStockOnlyItems) / totalItems) * 100 : 0) +
             '% 100%)'
           "
+          class="stock-doughnut"
         >
           <div class="doughnut-center">
             <strong>{{ totalItems }}</strong>
@@ -156,7 +287,6 @@
         </div>
 
         <div class="distribution-legend">
-
           <div>
             <span class="legend-dot healthy"></span>
             Healthy Stock
@@ -174,7 +304,6 @@
             Out of Stock
             <strong>{{ outOfStockItems }}</strong>
           </div>
-
         </div>
       </div>
     </section>
@@ -188,7 +317,6 @@
       </div>
 
       <div *ngIf="lowStockItemsList.length > 0">
-
         <div class="low-stock-table-container">
           <table>
             <thead>
@@ -203,47 +331,38 @@
 
             <tbody>
               <tr *ngFor="let item of lowStockItemsList">
-
                 <td>{{ item.sku }}</td>
                 <td>{{ item.name }}</td>
-                <td class="low-stock">{{ item.quantity }}</td>
+
+                <td>
+                  <span
+                    [class.out-of-stock]="item.quantity === 0"
+                    [class.low-stock]="item.quantity > 0"
+                    class="stock-status"
+                  >
+                    {{ item.quantity === 0 ? 'Out of Stock' : item.quantity }}
+                  </span>
+                </td>
+
                 <td>{{ item.lowStockThreshold }}</td>
 
                 <td>
                   <div class="restock-controls">
                     <input
-                      type="number"
-                      min="1"
                       [(ngModel)]="restockQuantity"
+                      min="1"
                       placeholder="Quantity"
+                      type="number"
                     />
 
-                    <button
-                      type="button"
-                      (click)="restockItem(item)"
-                    >
-                      Restock
-                    </button>
+                    <button (click)="restockItem(item)" type="button">Restock</button>
                   </div>
                 </td>
-
               </tr>
             </tbody>
           </table>
         </div>
-
       </div>
     </section>
-
   </ng-container>
-
-  <!-- Refresh Dashboard -->
-  <button
-    type="button"
-    (click)="loadDashboard()"
-    [disabled]="loading"
-  >
-    Refresh Dashboard
-  </button>
-
 </div>

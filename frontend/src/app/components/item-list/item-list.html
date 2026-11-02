@@ -9,17 +9,17 @@
 
     <div class="header-actions">
       <button
-        type="button"
-        class="refresh-button"
         (click)="loadItems()"
+        class="refresh-button"
+        type="button"
       >
         Refresh Items
       </button>
 
       <button
-        type="button"
-        class="add-item-button"
         (click)="onAddNewItem()"
+        class="add-item-button"
+        type="button"
       >
         + Add New Item
       </button>
@@ -28,10 +28,10 @@
 
   <!-- Item Form -->
   <app-item-form
+    (closeForm)="onCloseForm()"
+    (itemAdded)="onItemSaved()"
     *ngIf="showForm"
     [selectedItem]="selectedItem"
-    (itemAdded)="onItemSaved()"
-    (closeForm)="onCloseForm()"
   >
   </app-item-form>
 
@@ -40,17 +40,17 @@
 
     <div class="filter-buttons">
       <button
-        type="button"
-        [class.active]="!showLowStockOnly"
         (click)="showLowStockOnly = false; loadItems()"
+        [class.active]="!showLowStockOnly"
+        type="button"
       >
         All Items
       </button>
 
       <button
-        type="button"
-        [class.active]="showLowStockOnly"
         (click)="showLowStockOnly = true; loadLowStockItems()"
+        [class.active]="showLowStockOnly"
+        type="button"
       >
         Low Stock Only
       </button>
@@ -61,17 +61,17 @@
       <div class="filter-group search-group">
         <label>Search Items</label>
         <input
-          type="text"
-          placeholder="Search by SKU or item name..."
           [(ngModel)]="searchTerm"
+          placeholder="Search by SKU or item name..."
+          type="text"
         />
       </div>
 
       <div class="filter-group">
         <label>Brand</label>
         <select
-          [(ngModel)]="selectedBrand"
           (ngModelChange)="selectedCategory = ''"
+          [(ngModel)]="selectedBrand"
         >
           <option value="">All Brands</option>
           <option *ngFor="let brand of brands" [value]="brand">
@@ -117,7 +117,7 @@
   </div>
 
   <!-- Inventory Table -->
-  <div class="table-card" *ngIf="!loading && !errorMessage">
+  <div *ngIf="!loading && !errorMessage" class="table-card">
 
     <table>
       <thead>
@@ -151,17 +151,17 @@
 
           <td>
             <button
-              type="button"
-              class="edit-btn"
               (click)="onEditItem(item)"
+              class="edit-btn"
+              type="button"
             >
               Edit
             </button>
 
             <button
-              type="button"
-              class="delete-button"
               (click)="deleteItem(item.id)"
+              class="delete-button"
+              type="button"
             >
               Delete
             </button>
@@ -169,7 +169,7 @@
         </tr>
 
         <tr *ngIf="filteredItems.length === 0">
-          <td colspan="9" class="empty-message">
+          <td class="empty-message" colspan="9">
             No items found.
           </td>
         </tr>

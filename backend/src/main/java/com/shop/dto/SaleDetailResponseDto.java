@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record SaleDetailResponseDto(
-
         Long saleId,
         String saleNumber,
         LocalDateTime saleDate,
@@ -16,6 +15,5 @@ public record SaleDetailResponseDto(
         Integer quantity,
         BigDecimal unitPrice,
         BigDecimal subtotal
-
 ) {
 }

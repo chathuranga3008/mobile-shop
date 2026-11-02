@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -11,10 +11,9 @@ import { ItemService } from '../../services/item.service';
   standalone: true,
   imports: [CommonModule, FormsModule, ItemForm],
   templateUrl: './item-list.html',
-  styleUrl: './item-list.css'
+  styleUrl: './item-list.css',
 })
 export class ItemList implements OnInit {
-
   @Output() editItem = new EventEmitter<Item>();
   @Output() itemDeleted = new EventEmitter<void>();
 
@@ -24,7 +23,7 @@ export class ItemList implements OnInit {
 
   searchTerm = '';
   selectedBrand = '';
-  selectedCategory = ''
+  selectedCategory = '';
 
   loading = false;
   errorMessage = '';
@@ -32,7 +31,37 @@ export class ItemList implements OnInit {
   showForm = false;
   showLowStockOnly = false;
 
-  constructor(private itemService: ItemService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private itemService: ItemService,
+    private cdr: ChangeDetectorRef,
+  ) {}
+
+  get filteredItems(): Item[] {
+    const search = this.searchTerm.toLowerCase().trim();
+
+    return this.items.filter((item) => {
+      const matchesSearch =
+        item.sku.toLowerCase().includes(search) || item.name.toLowerCase().includes(search);
+
+      const matchesBrand = !this.selectedBrand || item.brand === this.selectedBrand;
+
+      const matchesCategory = !this.selectedCategory || item.category === this.selectedCategory;
+
+      return matchesSearch && matchesBrand && matchesCategory;
+    });
+  }
+
+  get brands(): string[] {
+    return [...new Set(this.items.map((item) => item.brand))].sort();
+  }
+
+  get categories(): string[] {
+    const filteredItems = this.selectedBrand
+      ? this.items.filter((item) => item.brand === this.selectedBrand)
+      : this.items;
+
+    return [...new Set(filteredItems.map((item) => item.category))].sort();
+  }
 
   ngOnInit(): void {
     this.loadItems();
@@ -81,9 +110,7 @@ export class ItemList implements OnInit {
   }
 
   deleteItem(id: number): void {
-    const confirmed = confirm(
-      'Are you sure you want to delete this item?'
-    );
+    const confirmed = confirm('Are you sure you want to delete this item?');
 
     if (!confirmed) {
       return;
@@ -121,35 +148,5 @@ export class ItemList implements OnInit {
   onCloseForm(): void {
     this.selectedItem = null;
     this.showForm = false;
-  }
-
-  get filteredItems(): Item[] {
-    const search = this.searchTerm.toLowerCase().trim();
-
-    return this.items.filter(item => {
-      const matchesSearch =
-        item.sku.toLowerCase().includes(search) ||
-        item.name.toLowerCase().includes(search);
-
-      const matchesBrand =
-        !this.selectedBrand || item.brand === this.selectedBrand;
-
-      const matchesCategory =
-        !this.selectedCategory || item.category === this.selectedCategory;
-
-      return matchesSearch && matchesBrand && matchesCategory;
-    });
-  }
-
-  get brands(): string[] {
-    return [...new Set(this.items.map(item => item.brand))].sort();
-  }
-
-  get categories(): string[] {
-    const filteredItems = this.selectedBrand
-      ? this.items.filter(item => item.brand === this.selectedBrand)
-      : this.items;
-
-    return [...new Set(filteredItems.map(item => item.category))].sort();
   }
 }

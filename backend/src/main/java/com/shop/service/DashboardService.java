@@ -1,12 +1,13 @@
-
 package com.shop.service;
 
 import com.shop.dto.DashboardSummaryResponseDto;
+import com.shop.dto.TopSellingProductResponseDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class DashboardService {
@@ -22,10 +23,8 @@ public class DashboardService {
             LocalDate endDate
     ) {
 
-        String sql = "CALL sp_get_dashboard_summary(?, ?)";
-
         return jdbcTemplate.queryForObject(
-                sql,
+                "CALL sp_get_dashboard_summary(?, ?)",
                 (rs, rowNum) -> new DashboardSummaryResponseDto(
                         rs.getLong("total_items"),
                         rs.getLong("total_quantity"),
@@ -36,6 +35,26 @@ public class DashboardService {
                         rs.getLong("total_sales"),
                         rs.getBigDecimal("total_revenue"),
                         rs.getLong("total_units_sold")
+                ),
+                Date.valueOf(startDate),
+                Date.valueOf(endDate)
+        );
+    }
+
+    // Top-Selling Products
+    public List<TopSellingProductResponseDto> getTopSellingProducts(
+            LocalDate startDate,
+            LocalDate endDate
+    ) {
+
+        return jdbcTemplate.query(
+                "CALL sp_get_top_selling_products(?, ?)",
+                (rs, rowNum) -> new TopSellingProductResponseDto(
+                        rs.getLong("item_id"),
+                        rs.getString("sku"),
+                        rs.getString("item_name"),
+                        rs.getLong("total_quantity_sold"),
+                        rs.getBigDecimal("total_revenue")
                 ),
                 Date.valueOf(startDate),
                 Date.valueOf(endDate)

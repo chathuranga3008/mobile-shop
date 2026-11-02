@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,33 +7,27 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
   template: `
     <div class="app-container">
-
       <aside class="sidebar">
         <div class="logo">
           <h2>Mobile Shop</h2>
         </div>
-          
+
         <nav>
-          <a routerLink="/dashboard" routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }">
+          <a
+            routerLink="/dashboard"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
             Dashboard
           </a>
 
-          <a routerLink="/inventory" routerLinkActive="active">
-            Inventory
-          </a>
+          <a routerLink="/inventory" routerLinkActive="active"> Inventory </a>
 
-          <a routerLink="/stock-history" routerLinkActive="active">
-            Stock History
-          </a>
+          <a routerLink="/stock-history" routerLinkActive="active"> Stock History </a>
 
-          <a routerLink="/sales" routerLinkActive="active">
-            Sales
-          </a>
+          <a routerLink="/sales" routerLinkActive="active"> Sales </a>
 
-          <a routerLink="/sales-history" routerLinkActive="active">
-            Sales History
-          </a>
+          <a routerLink="/sales-history" routerLinkActive="active"> Sales History </a>
         </nav>
       </aside>
 
@@ -46,10 +40,8 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
           <router-outlet></router-outlet>
         </main>
       </div>
-
     </div>
   `,
   styleUrl: './app.css'
 })
-export class App {
-}
+export class App {}

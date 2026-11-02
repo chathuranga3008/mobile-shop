@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { StockMovement } from '../../models/item.model';
@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './stock-history.css'
 })
 export class StockHistory implements OnInit {
-
   movements: StockMovement[] = [];
   loading = false;
   errorMessage = '';
@@ -28,30 +27,7 @@ export class StockHistory implements OnInit {
   constructor(
     private itemService: ItemService,
     private cdr: ChangeDetectorRef
-  ) { }
-
-  ngOnInit(): void {
-    this.loadStockMovements();
-  }
-
-  loadStockMovements(): void {
-    this.loading = true;
-    this.errorMessage = '';
-
-    this.itemService.getStockMovements().subscribe({
-      next: (data) => {
-        this.movements = data;
-        this.loading = false;
-        this.cdr.detectChanges();
-      },
-      error: (error) => {
-        console.error('Stock history error:', error);
-        this.errorMessage = 'Failed to load stock movement history.';
-        this.loading = false;
-        this.cdr.detectChanges();
-      }
-    });
-  }
+  ) {}
 
   get movementTypes(): string[] {
     return [...new Set(
@@ -61,7 +37,7 @@ export class StockHistory implements OnInit {
 
   get filteredMovements(): StockMovement[] {
     return this.movements
-      .filter(movement => {
+      .filter((movement) => {
         const movementDate = new Date(movement.createdAt);
 
         // Date range filter
@@ -115,5 +91,28 @@ export class StockHistory implements OnInit {
           ? dateB - dateA
           : dateA - dateB;
       });
+  }
+
+  ngOnInit(): void {
+    this.loadStockMovements();
+  }
+
+  loadStockMovements(): void {
+    this.loading = true;
+    this.errorMessage = '';
+
+    this.itemService.getStockMovements().subscribe({
+      next: (data) => {
+        this.movements = data;
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Stock history error:', error);
+        this.errorMessage = 'Failed to load stock movement history.';
+        this.loading = false;
+        this.cdr.detectChanges();
+      }
+    });
   }
 }

@@ -14,35 +14,35 @@
     <div class="filter-group">
       <label>Search Sale Number</label>
       <input
-        type="text"
-        [(ngModel)]="searchTerm"
         (input)="filterSales()"
+        [(ngModel)]="searchTerm"
         placeholder="Enter sale number"
+        type="text"
       />
     </div>
 
     <div class="filter-group">
       <label>From Date</label>
       <input
-        type="date"
-        [(ngModel)]="startDate"
         (change)="filterSales()"
+        [(ngModel)]="startDate"
+        type="date"
       />
     </div>
 
     <div class="filter-group">
       <label>To Date</label>
       <input
-        type="date"
-        [(ngModel)]="endDate"
         (change)="filterSales()"
+        [(ngModel)]="endDate"
+        type="date"
       />
     </div>
 
     <button
-      type="button"
-      class="clear-btn"
       (click)="searchTerm = ''; startDate = ''; endDate = ''; filterSales()"
+      class="clear-btn"
+      type="button"
     >
       Clear Filters
     </button>
@@ -61,8 +61,8 @@
 
   <!-- Sales History Table -->
   <div
-    class="table-card"
     *ngIf="!loading && selectedSale.length === 0"
+    class="table-card"
   >
 
     <table>
@@ -87,9 +87,9 @@
 
           <td>
             <button
-              type="button"
-              class="view-btn"
               (click)="viewSaleDetails(sale.saleId)"
+              class="view-btn"
+              type="button"
             >
               View Details
             </button>
@@ -97,7 +97,7 @@
         </tr>
 
         <tr *ngIf="filteredSales.length === 0">
-          <td colspan="6" class="empty-message">
+          <td class="empty-message" colspan="6">
             No sales found.
           </td>
         </tr>
@@ -108,8 +108,8 @@
 
   <!-- Sale Details -->
   <div
-    class="details-card"
     *ngIf="selectedSale.length > 0"
+    class="details-card"
   >
 
     <div class="details-header">
@@ -120,9 +120,9 @@
       </div>
 
       <button
-        type="button"
-        class="back-btn"
         (click)="closeSaleDetails()"
+        class="back-btn"
+        type="button"
       >
         Back to Sales
       </button>

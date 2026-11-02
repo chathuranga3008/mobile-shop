@@ -1,4 +1,3 @@
-
 package com.shop.dto;
 
 import java.math.BigDecimal;

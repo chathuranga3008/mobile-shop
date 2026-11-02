@@ -16,26 +16,26 @@ import java.util.Optional;
 public class ItemService {
 
     private final JdbcTemplate jdbcTemplate;
+
     // Maps database columns to ItemResponseDto
-    private final RowMapper<ItemResponseDto> itemMapper =
-            (rs, rowNum) -> {
+    private final RowMapper<ItemResponseDto> itemMapper = (rs, rowNum) -> {
 
-                Timestamp timestamp = rs.getTimestamp("created_at");
+        Timestamp timestamp = rs.getTimestamp("created_at");
 
-                return new ItemResponseDto(
-                        rs.getLong("id"),
-                        rs.getString("sku"),
-                        rs.getString("name"),
-                        rs.getString("brand"),
-                        rs.getString("category"),
-                        rs.getBigDecimal("price"),
-                        rs.getInt("quantity"),
-                        rs.getInt("low_stock_threshold"),
-                        timestamp != null
-                                ? timestamp.toLocalDateTime()
-                                : null
+        return new ItemResponseDto(
+                rs.getLong("id"),
+                rs.getString("sku"),
+                rs.getString("name"),
+                rs.getString("brand"),
+                rs.getString("category"),
+                rs.getBigDecimal("price"),
+                rs.getInt("quantity"),
+                rs.getInt("low_stock_threshold"),
+                timestamp != null
+                        ? timestamp.toLocalDateTime()
+                        : null
                 );
-            };
+    };
 
     public ItemService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -81,7 +81,7 @@ public class ItemService {
     public Optional<ItemResponseDto> updateItem(
             Long id,
             ItemRequestDto item
-    ) {
+        ) {
 
         List<ItemResponseDto> items = jdbcTemplate.query(
                 "CALL sp_update_item(?, ?, ?, ?, ?, ?, ?, ?)",
@@ -103,7 +103,7 @@ public class ItemService {
     public Optional<ItemResponseDto> restockItem(
             Long id,
             int quantityToAdd
-    ) {
+        ) {
 
         List<ItemResponseDto> items = jdbcTemplate.query(
                 "CALL sp_restock_item(?, ?)",
@@ -138,10 +138,9 @@ public class ItemService {
 
     public List<StockMovementResponseDto> getStockMovements() {
 
-        String sql = "CALL sp_get_stock_movements()";
-
-        return jdbcTemplate.query(sql, (rs, rowNum) ->
-                new StockMovementResponseDto(
+        return jdbcTemplate.query(
+                "CALL sp_get_stock_movements()",
+                (rs, rowNum) -> new StockMovementResponseDto(
                         rs.getLong("id"),
                         rs.getLong("item_id"),
                         rs.getString("item_name"),
