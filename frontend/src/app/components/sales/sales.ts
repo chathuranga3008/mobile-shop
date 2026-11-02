@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { Item } from '../../models/item.model';
 import { SaleRequest } from '../../models/sale.model';
@@ -9,17 +10,21 @@ import { SaleService } from '../../services/sale.service';
 @Component({
   selector: 'app-sales',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './sales.html',
   styleUrl: './sales.css'
 })
 export class Sales implements OnInit {
   items: Item[] = [];
-  isLoading = false;
-  errorMessage = '';
   quantities: { [itemId: number]: number } = {};
   cartItems: { item: Item; quantity: number }[] = [];
+
+  isLoading = false;
+  errorMessage = '';
+
   cartMessage = '';
+  searchTerm = '';
+
   isProcessingSale = false;
   saleSuccessMessage = '';
   saleErrorMessage = '';
@@ -28,7 +33,7 @@ export class Sales implements OnInit {
     private itemService: ItemService,
     private saleService: SaleService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadItems();
@@ -153,5 +158,19 @@ export class Sales implements OnInit {
         this.cdr.detectChanges();
       }
     });
+  }
+
+  get filteredItems(): Item[] {
+    const search = this.searchTerm.trim().toLowerCase();
+
+    if (!search) {
+      return this.items;
+    }
+
+    return this.items.filter(item =>
+      item.name.toLowerCase().includes(search) ||
+      item.sku.toLowerCase().includes(search) ||
+      (item.brand || '').toLowerCase().includes(search)
+    );
   }
 }

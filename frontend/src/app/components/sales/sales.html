@@ -1,5 +1,4 @@
 <div class="sales-container">
-
   <!-- Page Header -->
   <div class="page-header">
     <div>
@@ -10,54 +9,56 @@
 
   <!-- Product Selection -->
   <div class="sales-card">
-
     <div class="section-header">
       <div>
         <h3>Select Products</h3>
-        <p class="section-subtitle">
-          Choose products and quantities to add to your sale
-        </p>
+        <p class="section-subtitle">Choose products and quantities to add to your sale</p>
       </div>
 
       <span class="item-count">{{ items.length }} Products</span>
     </div>
 
-    <div *ngIf="isLoading" class="loading-message">
-      Loading inventory items...
-    </div>
+    <div *ngIf="isLoading" class="loading-message">Loading inventory items...</div>
 
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
 
-    <div
-      *ngIf="!isLoading && !errorMessage && items.length === 0"
-      class="empty-message"
-    >
+    <!-- Product Search -->
+    <div *ngIf="!isLoading && !errorMessage && items.length > 0" class="product-search">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        placeholder="Search by product name, SKU or brand..."
+      />
+
+      <button
+        *ngIf="searchTerm"
+        (click)="searchTerm = ''"
+        type="button"
+        class="clear-search-button"
+      >
+        Clear
+      </button>
+    </div>
+
+    <div *ngIf="!isLoading && !errorMessage && items.length === 0" class="empty-message">
       No inventory items available.
     </div>
 
     <!-- Available Products -->
-    <div *ngIf="!isLoading && !errorMessage && items.length > 0" class="product-list">
-
-      <div *ngFor="let item of items" class="product-row">
-
+    <div *ngIf="!isLoading && !errorMessage && filteredItems.length > 0" class="product-list">
+      <div *ngFor="let item of filteredItems" class="product-row">
         <div class="product-details">
           <strong>{{ item.name }}</strong>
           <span>{{ item.sku }} | {{ item.brand }}</span>
         </div>
 
-        <div class="product-price">
-          Rs. {{ item.price | number: '1.2-2' }}
-        </div>
+        <div class="product-price">Rs. {{ item.price | number: '1.2-2' }}</div>
 
         <div class="product-stock">
           <span class="stock-label">Available Stock</span>
-
-          <span
-            [class.out-of-stock]="item.quantity <= 0"
-            class="stock-value"
-          >
+          <span [class.out-of-stock]="item.quantity <= 0" class="stock-value">
             {{ item.quantity }}
           </span>
         </div>
@@ -83,29 +84,28 @@
         </div>
 
         <div class="product-action">
-          <button
-            (click)="addToCart(item)"
-            [disabled]="item.quantity <= 0"
-            type="button"
-          >
+          <button (click)="addToCart(item)" [disabled]="item.quantity <= 0" type="button">
             Add to Cart
           </button>
         </div>
-
       </div>
     </div>
 
+    <!-- No Search Results -->
+    <div
+      *ngIf="!isLoading && !errorMessage && items.length > 0 && filteredItems.length === 0"
+      class="empty-message"
+    >
+      No products match your search.
+    </div>
   </div>
 
   <!-- Shopping Cart -->
   <div class="sales-card cart-card">
-
     <div class="section-header">
       <div>
         <h3>Shopping Cart</h3>
-        <p class="section-subtitle">
-          Review selected products before completing the sale
-        </p>
+        <p class="section-subtitle">Review selected products before completing the sale</p>
       </div>
 
       <span class="item-count">{{ cartItems.length }} Items</span>
@@ -131,43 +131,31 @@
 
     <!-- Cart Items -->
     <div *ngIf="cartItems.length > 0" class="cart-list">
-
       <div *ngFor="let cartItem of cartItems" class="cart-row">
-
         <div class="cart-product">
           <strong>{{ cartItem.item.name }}</strong>
           <span>{{ cartItem.item.sku }}</span>
         </div>
 
-        <div class="cart-quantity">
-          Quantity: {{ cartItem.quantity }}
-        </div>
+        <div class="cart-quantity">Quantity: {{ cartItem.quantity }}</div>
 
         <div class="cart-price">
           Rs. {{ cartItem.item.price * cartItem.quantity | number: '1.2-2' }}
         </div>
 
         <div>
-          <button
-            (click)="removeFromCart(cartItem.item.id)"
-            class="remove-button"
-            type="button"
-          >
+          <button (click)="removeFromCart(cartItem.item.id)" class="remove-button" type="button">
             Remove
           </button>
         </div>
-
       </div>
     </div>
 
     <!-- Checkout -->
     <div *ngIf="cartItems.length > 0" class="checkout-area">
-
       <div class="cart-total">
         <span>Total Amount</span>
-        <strong>
-          Rs. {{ getCartTotal() | number: '1.2-2' }}
-        </strong>
+        <strong> Rs. {{ getCartTotal() | number: '1.2-2' }} </strong>
       </div>
 
       <div class="checkout-section">
@@ -180,9 +168,6 @@
           {{ isProcessingSale ? 'Processing Sale...' : 'Complete Sale' }}
         </button>
       </div>
-
     </div>
-
   </div>
-
 </div>

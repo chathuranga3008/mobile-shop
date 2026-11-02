@@ -1,7 +1,5 @@
-CREATE
-DATABASE  IF NOT EXISTS `mobile_shop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE
-`mobile_shop`;
+CREATE DATABASE  IF NOT EXISTS `mobile_shop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `mobile_shop`;
 -- MySQL dump 10.13  Distrib 8.0.46, for Win64 (x86_64)
 --
 -- Host: localhost    Database: mobile_shop
@@ -26,35 +24,30 @@ USE
 DROP TABLE IF EXISTS `stock_movements`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `stock_movements`
-(
-    `id`                bigint      NOT NULL AUTO_INCREMENT,
-    `item_id`           bigint      NOT NULL,
-    `previous_quantity` int         NOT NULL,
-    `quantity_changed`  int         NOT NULL,
-    `new_quantity`      int         NOT NULL,
-    `movement_type`     varchar(20) NOT NULL,
-    `created_at`        timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    KEY                 `fk_stock_movements_item` (`item_id`),
-    CONSTRAINT `fk_stock_movements_item` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE RESTRICT,
-    CONSTRAINT `chk_stock_movement_quantities` CHECK (((`previous_quantity` >= 0) and (`quantity_changed` > 0) and
-                                                       (`new_quantity` >= 0)))
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `stock_movements` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `item_id` bigint NOT NULL,
+  `previous_quantity` int NOT NULL,
+  `quantity_changed` int NOT NULL,
+  `new_quantity` int NOT NULL,
+  `movement_type` varchar(20) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_stock_movements_item` (`item_id`),
+  CONSTRAINT `fk_stock_movements_item` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE RESTRICT,
+  CONSTRAINT `chk_stock_movement_quantities` CHECK (((`previous_quantity` >= 0) and (`new_quantity` >= 0) and (((`movement_type` = _utf8mb4'RESTOCK') and (`quantity_changed` > 0)) or ((`movement_type` = _utf8mb4'SALE') and (`quantity_changed` < 0)))))
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `stock_movements`
 --
 
-LOCK
-TABLES `stock_movements` WRITE;
+LOCK TABLES `stock_movements` WRITE;
 /*!40000 ALTER TABLE `stock_movements` DISABLE KEYS */;
-INSERT INTO `stock_movements`
-VALUES (1, 4, 13, 5, 18, 'RESTOCK', '2026-10-31 17:13:54');
+INSERT INTO `stock_movements` VALUES (1,1,100,-1,99,'SALE','2026-09-01 10:43:00'),(2,2,100,-1,99,'SALE','2026-09-02 07:56:00'),(3,3,100,-1,99,'SALE','2026-09-03 05:09:00'),(4,4,100,-1,99,'SALE','2026-09-04 12:22:00'),(5,5,100,-1,99,'SALE','2026-09-05 08:35:00'),(6,6,100,-1,99,'SALE','2026-09-06 05:48:00'),(7,7,100,-1,99,'SALE','2026-09-07 13:01:00'),(8,8,100,-1,99,'SALE','2026-09-08 10:14:00'),(9,9,100,-1,99,'SALE','2026-09-09 07:27:00'),(10,10,100,-1,99,'SALE','2026-09-10 03:40:00'),(11,11,100,-1,99,'SALE','2026-09-11 10:53:00'),(12,12,100,-1,99,'SALE','2026-09-12 08:06:00'),(13,13,100,-1,99,'SALE','2026-09-13 05:19:00'),(14,14,100,-1,99,'SALE','2026-09-14 11:32:00'),(15,15,100,-1,99,'SALE','2026-09-15 08:45:00'),(16,16,100,-1,99,'SALE','2026-09-16 05:58:00'),(17,17,100,-1,99,'SALE','2026-09-17 13:11:00'),(18,18,100,-1,99,'SALE','2026-09-18 10:24:00'),(19,19,100,-1,99,'SALE','2026-09-19 06:37:00'),(20,20,100,-1,99,'SALE','2026-09-20 03:50:00'),(21,21,100,-1,99,'SALE','2026-09-21 11:03:00'),(22,22,100,-1,99,'SALE','2026-09-22 08:16:00'),(23,23,100,-1,99,'SALE','2026-09-23 05:29:00'),(24,24,100,-1,99,'SALE','2026-09-24 11:42:00'),(25,25,100,-1,99,'SALE','2026-09-25 08:55:00'),(26,26,100,-1,99,'SALE','2026-09-26 06:08:00'),(27,27,100,-1,99,'SALE','2026-09-27 13:21:00'),(28,28,100,-1,99,'SALE','2026-09-28 09:34:00'),(29,29,100,-1,99,'SALE','2026-09-29 06:47:00'),(30,30,100,-1,99,'SALE','2026-09-30 04:00:00'),(31,31,100,-1,99,'SALE','2026-10-01 11:13:00'),(32,32,100,-1,99,'SALE','2026-10-02 08:26:00'),(33,33,100,-1,99,'SALE','2026-10-03 04:39:00'),(34,34,100,-1,99,'SALE','2026-10-04 11:52:00'),(35,35,100,-1,99,'SALE','2026-10-05 09:05:00'),(36,36,100,-1,99,'SALE','2026-10-06 06:18:00'),(37,37,100,-1,99,'SALE','2026-10-07 12:31:00'),(38,38,100,-1,99,'SALE','2026-10-08 09:44:00'),(39,39,100,-1,99,'SALE','2026-10-09 06:57:00'),(40,40,100,-1,99,'SALE','2026-10-10 04:10:00'),(41,41,100,-1,99,'SALE','2026-10-11 11:23:00'),(42,42,100,-1,99,'SALE','2026-10-12 07:36:00'),(43,43,100,-1,99,'SALE','2026-10-13 04:49:00'),(44,44,100,-1,99,'SALE','2026-10-14 12:02:00'),(45,45,100,-1,99,'SALE','2026-10-15 09:15:00'),(46,46,100,-1,99,'SALE','2026-10-16 06:28:00'),(47,47,100,-1,99,'SALE','2026-10-17 12:41:00'),(48,48,100,-1,99,'SALE','2026-10-18 09:54:00'),(49,49,100,-1,99,'SALE','2026-10-19 07:07:00'),(50,50,100,-1,99,'SALE','2026-10-20 04:20:00');
 /*!40000 ALTER TABLE `stock_movements` ENABLE KEYS */;
-UNLOCK
-TABLES;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -65,4 +58,4 @@ TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-01  2:04:16
+-- Dump completed on 2026-11-03  0:06:24
