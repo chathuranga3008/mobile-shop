@@ -7,7 +7,6 @@ import com.shop.dto.SaleResponseDto;
 import com.shop.service.SaleService;
 
 import jakarta.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/sales")
-@CrossOrigin(origins = "http://localhost:4200")
 public class SaleController {
 
     private final SaleService saleService;

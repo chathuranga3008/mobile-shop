@@ -6,14 +6,12 @@ import com.shop.dto.StockMovementResponseDto;
 import com.shop.service.ItemService;
 
 import jakarta.validation.Valid;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/items")
 public class ItemController {
